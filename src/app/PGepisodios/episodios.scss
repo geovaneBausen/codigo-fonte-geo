@@ -1,0 +1,222 @@
+// Página principal dos episódios - Estilo similar à home
+.episodios-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  padding: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+// Grid dos episódios - Estilo similar à home
+.episodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+// Card individual do episódio - Estilo similar aos cards da home
+.episode-card {
+  position: relative;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 212, 170, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  height: fit-content;
+
+  &:hover {
+    transform: translateY(-8px);
+    border-color: #00d4aa;
+    box-shadow: 0 12px 32px rgba(0, 212, 170, 0.3);
+  }
+
+  // Cabeçalho do episódio
+  .episode-header {
+    background: linear-gradient(135deg, #00d4aa 0%, #007991 100%);
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+
+    h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.3;
+      flex: 1;
+      margin-right: 12px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .episode-code {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      white-space: nowrap;
+    }
+  }
+
+  // Informações do episódio
+  .episode-info {
+    padding: 16px;
+    color: white;
+
+    p {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #b0b0b0;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      strong {
+        color: #00d4aa;
+        font-weight: bold;
+        margin-right: 4px;
+      }
+    }
+
+    .air-date {
+      margin-bottom: 8px;
+    }
+
+    .characters-count {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Estados de carregamento e erro
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+  color: white;
+
+  h2 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+  }
+}
+
+// Spinner de carregamento
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #00d4aa;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Quando não há resultados
+.no-results {
+  text-align: center;
+  padding: 3rem;
+  color: white;
+  font-size: 1.2rem;
+  background: rgba(0, 212, 170, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 212, 170, 0.3);
+
+  p {
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .episodios-page {
+    padding: 10px;
+  }
+
+  .episodes-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .episode-card {
+    .episode-header {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+
+      h3 {
+        margin-right: 0;
+        font-size: 16px;
+      }
+
+      .episode-code {
+        align-self: center;
+      }
+    }
+
+    .episode-info {
+      padding: 12px;
+
+      p {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .episodios-page {
+    padding: 8px;
+  }
+
+  .episode-card {
+    .episode-header {
+      padding: 12px;
+
+      h3 {
+        font-size: 14px;
+      }
+
+      .episode-code {
+        font-size: 10px;
+        padding: 6px 10px;
+      }
+    }
+
+    .episode-info {
+      padding: 10px;
+
+      p {
+        font-size: 11px;
+      }
+    }
+  }
+}

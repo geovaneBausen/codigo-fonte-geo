@@ -1,0 +1,128 @@
+.location-card {
+  background: linear-gradient(135deg, #2a2d3a 0%, #1e1f29 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #3a3d4a;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 255, 136, 0.1);
+    border-color: #00ff88;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00ff88, #00d4ff);
+  }
+}
+
+.location-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  
+  .location-name {
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+    flex: 1;
+    margin-right: 1rem;
+  }
+
+  .location-type {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    
+    &.type-planet {
+      background: linear-gradient(135deg, #ff6b35, #f7931e);
+      color: #ffffff;
+    }
+    
+    &.type-dimension {
+      background: linear-gradient(135deg, #9b59b6, #8e44ad);
+      color: #ffffff;
+    }
+    
+    &.type-space {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: #ffffff;
+    }
+    
+    &.type-other {
+      background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+      color: #ffffff;
+    }
+  }
+}
+
+.location-info {
+  margin-bottom: 1rem;
+  
+  .location-dimension,
+  .location-residents {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    
+    .label {
+      color: #a0a0a0;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    
+    .value {
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.location-footer {
+  border-top: 1px solid #3a3d4a;
+  padding-top: 0.75rem;
+  
+  .location-id {
+    color: #6c757d;
+    font-size: 0.8rem;
+    text-align: center;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 768px) {
+  .location-card {
+    padding: 1rem;
+  }
+  
+  .location-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    .location-name {
+      margin-right: 0;
+      font-size: 1.1rem;
+    }
+    
+    .location-type {
+      align-self: flex-start;
+    }
+  }
+}

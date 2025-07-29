@@ -1,0 +1,251 @@
+//NavBar com tema Rick and Morty
+
+.NavBar {
+    background: linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a2332 100%);
+    padding: 1rem 3%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid rgba(0, 255, 146, 0.3);
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    position: relative;
+
+    // Efeito de partículas de fundo
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 50%, rgba(0, 255, 146, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(157, 78, 221, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 40% 80%, rgba(255, 184, 77, 0.1) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        z-index: 2;
+        position: relative;
+
+        .portal-logo {
+            font-size: 2rem;
+            animation: portal-spin 4s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 146, 0.5));
+        }
+
+        .page-title {
+            color: #ffffff;
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+
+            .rick-text {
+                font-size: 1.8rem;
+                color: #00ff92;
+                text-shadow: 
+                    0 0 10px rgba(0, 255, 146, 0.5),
+                    2px 2px 4px rgba(0, 0, 0, 0.5);
+                letter-spacing: -0.02em;
+            }
+
+            .and-text {
+                font-size: 1rem;
+                color: rgba(255, 255, 255, 0.7);
+                margin: 0 0.25rem;
+                align-self: center;
+            }
+
+            .morty-text {
+                font-size: 1.8rem;
+                color: #ffb84d;
+                text-shadow: 
+                    0 0 10px rgba(255, 184, 77, 0.5),
+                    2px 2px 4px rgba(0, 0, 0, 0.5);
+                letter-spacing: -0.02em;
+            }
+
+            .subtitle {
+                font-size: 0.75rem;
+                color: rgba(255, 255, 255, 0.6);
+                font-weight: 400;
+                margin-top: 0.25rem;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 0.5rem;
+        margin: 0;
+        padding: 0;
+        z-index: 2;
+        position: relative;
+
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+                transition: left 0.5s ease;
+            }
+
+            .nav-icon {
+                font-size: 1.2rem;
+                transition: transform 0.3s ease;
+            }
+
+            .nav-text {
+                font-size: 0.85rem;
+                letter-spacing: 0.02em;
+                opacity: 0.9;
+            }
+
+            &:hover {
+                background: rgba(0, 255, 146, 0.1);
+                border-color: rgba(0, 255, 146, 0.3);
+                color: #00ff92;
+                transform: translateY(-2px);
+                box-shadow: 
+                    0 8px 25px rgba(0, 255, 146, 0.2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+                &::before {
+                    left: 100%;
+                }
+
+                .nav-icon {
+                    transform: scale(1.1);
+                }
+            }
+
+            &:focus {
+                outline: 2px solid #00ff92;
+                outline-offset: 2px;
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
+    }
+}
+
+// Animações
+@keyframes portal-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+    .NavBar {
+        padding: 0.75rem 2%;
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        .nav-brand {
+            .portal-logo {
+                font-size: 1.5rem;
+            }
+
+            .page-title {
+                .rick-text, .morty-text {
+                    font-size: 1.4rem;
+                }
+
+                .subtitle {
+                    font-size: 0.65rem;
+                }
+            }
+        }
+
+        .nav-links {
+            gap: 0.25rem;
+
+            .nav-link {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+
+                .nav-text {
+                    display: none;
+                }
+
+                .nav-icon {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .NavBar {
+        padding: 0.5rem 1%;
+
+        .nav-brand {
+            gap: 0.5rem;
+
+            .portal-logo {
+                font-size: 1.25rem;
+            }
+
+            .page-title {
+                .rick-text, .morty-text {
+                    font-size: 1.2rem;
+                }
+
+                .and-text {
+                    font-size: 0.9rem;
+                }
+
+                .subtitle {
+                    font-size: 0.6rem;
+                }
+            }
+        }
+
+        .nav-links {
+            .nav-link {
+                padding: 0.5rem 0.75rem;
+
+                .nav-icon {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+}

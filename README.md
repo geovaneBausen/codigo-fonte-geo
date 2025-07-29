@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+--------------------------------------------------------
+O projeto implementa um padrão de arquitetura em camadas:
+    --------------------------------------------------------
+    Camada de Interface: Componentes React (EntityCard, UniversalSearch)
+    --------------------------------------------------------
+    Camada de Controle: RickMortyController gerencia regras de negócio
+    --------------------------------------------------------
+    Camada de Modelo: Entidades Character, Episode, Location
+    --------------------------------------------------------
+    Camada de Dados: APIs Rick & Morty + useRickMortyData
+--------------------------------------------------------
+Padrões de Design Implementados:
+Interface Segregation (IPesquisavel)
+--------------------------------------------------------
+// Todas as entidades implementam busca unificada:
 
-## Getting Started
+    interface IPesquisavel {
+        atendeCriterio(criterio: string): boolean;
+        toString(): string;
+    }
+--------------------------------------------------------
 
-First, run the development server:
+Polimorfismo em Ação
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+O EntityCard renderiza diferentes tipos de entidade
+Cada entidade tem comportamento específico de pesquisa
+Controller trata todas como IPesquisavel
+--------------------------------------------------------
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+--------------------------------------------------------
+Factory Pattern
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+useRickMortyData cria instâncias das entidades a partir da API
+Transformação automática: API data → Class instances
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+--------------------------------------------------------
+Fluxo de Dados:
 
-## Learn More
+API Rick & Morty → useRickMortyData → Controller → Components → UI
+--------------------------------------------------------
+Carregamento: Hook faz requisições paralelas (Promise.all)
+Processamento: Controller organiza entidades em catálogo
+Busca: Interface IPesquisavel permite pesquisa unificada
+Renderização: EntityCard exibe polimorficamente
+--------------------------------------------------------
+Funcionalidades Principais:
 
-To learn more about Next.js, take a look at the following resources:
+Busca Universal 
+Pesquisa simultânea em personagens, episódios e localizações
+Implementação via IPesquisavel.atendeCriterio()
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+--------------------------------------------------------
+Páginas Especializadass
+/PGpersonagens: Lista personagens
+/PGplanetas: Exibe localizações
+/PGepisodios: Mostra episódios
+Componentes Reutilizáveis
+--------------------------------------------------------
+Componentes Reutilizáveis
+EntityCard: Renderização polimórfica
+SearchBar: Busca unificada
+NavBar: Navegação temática
+5. Vantagens da Arquitetura (1 min)
+✅ Extensibilidade: Adicionar novas entidades é simples (implementar IPesquisavel)
+✅ Manutenibilidade: Separação clara de responsabilidades
+✅ Reutilização: Componentes genéricos servem múltiplas entidades
+✅ Performance: Carregamento assíncrono e hooks otimizados
+✅ UX: Interface responsiva com tema Rick & Morty autêntico
+--------------------------------------------------------
