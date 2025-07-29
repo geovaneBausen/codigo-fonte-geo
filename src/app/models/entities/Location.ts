@@ -2,11 +2,9 @@ import { EntidadeBase } from '../base/EntidadeBase';
 import { IPesquisavel } from '../../interfaces/IPesquisavel';
 
 export class Location extends EntidadeBase implements IPesquisavel {
-  public name: string;
   public type: string;
   public dimension: string;
   public residents: string[];
-  public url?: string;
 
   constructor(
     id: number,
@@ -14,14 +12,12 @@ export class Location extends EntidadeBase implements IPesquisavel {
     type: string,
     dimension: string,
     residents: string[] = [],
-    url?: string
+    url: string = ''
   ) {
-    super(id);
-    this.name = name;
+    super(id, name, url);
     this.type = type;
     this.dimension = dimension;
     this.residents = residents;
-    this.url = url;
   }
 
   /**
@@ -48,6 +44,7 @@ export class Location extends EntidadeBase implements IPesquisavel {
   adicionarResidente(residente: string): void {
     if (!this.residents.includes(residente)) {
       this.residents.push(residente);
+      this.atualizarTimestamp();
     }
   }
 
@@ -56,6 +53,7 @@ export class Location extends EntidadeBase implements IPesquisavel {
    */
   removerResidente(residente: string): void {
     this.residents = this.residents.filter(r => r !== residente);
+    this.atualizarTimestamp();
   }
 
   /**
@@ -111,7 +109,9 @@ export class Location extends EntidadeBase implements IPesquisavel {
       type: this.type,
       dimension: this.dimension,
       residents: this.residents,
-      url: this.url
+      url: this.url,
+      criadoEm: this.criadoEm,
+      atualizadoEm: this.atualizadoEm
     };
   }
 
