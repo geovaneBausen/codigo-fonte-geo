@@ -4,6 +4,7 @@ export abstract class EntidadeBase implements IPesquisavel {
   public id: number;
   public name: string;
   public url: string;
+
   public criadoEm: Date;
   public atualizadoEm: Date;
 
@@ -11,6 +12,7 @@ export abstract class EntidadeBase implements IPesquisavel {
     this.id = id;
     this.name = name;
     this.url = url;
+    
     this.criadoEm = new Date();
     this.atualizadoEm = new Date();
   }
@@ -19,7 +21,9 @@ export abstract class EntidadeBase implements IPesquisavel {
     this.atualizadoEm = new Date();
   }
 
-  // Implementação padrão do IPesquisavel
+  /**
+   * Implementação padrão do IPesquisavel
+   */
   public atendeCriterio(criterio: string): boolean {
     const termo = criterio.toLowerCase();
     return this.name.toLowerCase().includes(termo) ||
@@ -30,6 +34,5 @@ export abstract class EntidadeBase implements IPesquisavel {
     return `${this.constructor.name} (ID: ${this.id}, Nome: ${this.name})`;
   }
 
-  // Método abstrato que deve ser implementado pelas classes filhas
   public abstract getDescription(): string;
 }

@@ -18,10 +18,7 @@ export function useRickMortySystem() {
   const [locations, setLocations] = useState<Location[]>([]);
   const [dataLoaded, setDataLoaded] = useState(false);
 
-  /**
-   * Carregar dados da API Rick and Morty
-   * Implementa o padrão de carregamento assíncrono com tratamento de erros
-   */
+
   const carregarDadosDaApi = useCallback(async (): Promise<void> => {
     if (dataLoaded || isLoading) {
       return;
@@ -78,8 +75,6 @@ export function useRickMortySystem() {
   };
 
   /**
-   * Buscar personagens por espécie específica
-   * Implementa regra de negócio específica do domínio Rick and Morty
    * @param species - Nome da espécie
    * @returns Array de personagens da espécie
    */

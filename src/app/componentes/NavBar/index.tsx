@@ -41,12 +41,6 @@ export default function NavBar(){
                         <span className="nav-text">Episódios</span>
                     </Link>
                 </li>
-                <li>
-                    <Link href="/PGsobre" className="nav-link" title="Sobre">
-                        <span className="nav-icon">ℹ️</span>
-                        <span className="nav-text">Sobre</span>
-                    </Link>
-                </li>
             </ul>
         </nav>
     )

@@ -14,7 +14,6 @@ export class Episode extends EntidadeBase {
     url: string = ''
   ) {
     super(id, name, url);
-    
     this.episode = episode;
     this.air_date = air_date;
     this.characters = characters;
@@ -27,16 +26,39 @@ export class Episode extends EntidadeBase {
            this.air_date.toLowerCase().includes(termo);
   }
 
-  /**
-   * Implementação do método abstrato da EntidadeBase
-   */
   public getDescription(): string {
     return `Episódio: ${this.episode} - ${this.name} (${this.air_date})`;
   }
 
-  /**
-   * Implementação personalizada do toString()
-   */
+  public adicionarPersonagem(personagem: string): void {
+    if (!this.characters.includes(personagem)) {
+      this.characters.push(personagem);
+      this.atualizarTimestamp();
+    }
+  }
+
+  public removerPersonagem(personagem: string): void {
+    this.characters = this.characters.filter(c => c !== personagem);
+    this.atualizarTimestamp();
+  }
+
+  public obterNumeroPersonagens(): number {
+    return this.characters.length;
+  }
+
+  public toJSON(): any {
+    return {
+      id: this.id,
+      name: this.name,
+      episode: this.episode,
+      air_date: this.air_date,
+      characters: this.characters,
+      url: this.url,
+      criadoEm: this.criadoEm,
+      atualizadoEm: this.atualizadoEm
+    };
+  }
+
   public toString(): string {
     return `${this.name} (${this.episode}) - ${this.air_date}`;
   }

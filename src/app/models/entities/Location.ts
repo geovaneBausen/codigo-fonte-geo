@@ -1,7 +1,6 @@
 import { EntidadeBase } from '../base/EntidadeBase';
-import { IPesquisavel } from '../../interfaces/IPesquisavel';
 
-export class Location extends EntidadeBase implements IPesquisavel {
+export class Location extends EntidadeBase {
   public type: string;
   public dimension: string;
   public residents: string[];
@@ -20,74 +19,39 @@ export class Location extends EntidadeBase implements IPesquisavel {
     this.residents = residents;
   }
 
-  /**
-   * Implementação da interface IPesquisavel
-   * Pesquisa por critério no nome da localização
-   */
-  pesquisarPorCriterio(criterio: string): boolean {
-    const criterioPadrao = criterio.toLowerCase();
-    return this.name.toLowerCase().includes(criterioPadrao) ||
-           this.type.toLowerCase().includes(criterioPadrao) ||
-           this.dimension.toLowerCase().includes(criterioPadrao);
+  // Sobrescreve a implementação da classe pai para incluir campos específicos
+  public atendeCriterio(criterio: string): boolean {
+    const termo = criterio.toLowerCase();
+    return super.atendeCriterio(criterio) ||
+           this.type.toLowerCase().includes(termo) ||
+           this.dimension.toLowerCase().includes(termo);
   }
 
-  /**
-   * Implementation of IPesquisavel interface
-   */
-  atendeCriterio(criterio: string): boolean {
-    return this.pesquisarPorCriterio(criterio);
+  public getDescription(): string {
+    return `Local: ${this.name} (${this.type}) - Dimensão: ${this.dimension}`;
   }
 
-  /**
-   * Adiciona um residente à localização
-   */
-  adicionarResidente(residente: string): void {
+  public adicionarResidente(residente: string): void {
     if (!this.residents.includes(residente)) {
       this.residents.push(residente);
       this.atualizarTimestamp();
     }
   }
 
-  /**
-   * Remove um residente da localização
-   */
-  removerResidente(residente: string): void {
+  public removerResidente(residente: string): void {
     this.residents = this.residents.filter(r => r !== residente);
     this.atualizarTimestamp();
   }
 
-  /**
-   * Retorna uma descrição da localização
-   */
-  getDescription(): string {
-    return `Local: ${this.name} (${this.type}) - Dimensão: ${this.dimension}`;
-  }
-
-  /**
-   * Retorna o texto principal usado na pesquisa (nome)
-   */
-  obterTextoPrincipal(): string {
-    return this.name;
-  }
-
-  /**
-   * Verifica se é um planeta
-   */
-  ehPlaneta(): boolean {
+  public ehPlaneta(): boolean {
     return this.type.toLowerCase().includes('planet');
   }
 
-  /**
-   * Retorna o número de residentes
-   */
-  obterNumeroResidentes(): number {
+  public obterNumeroResidentes(): number {
     return this.residents.length;
   }
 
-  /**
-   * Atualiza informações da localização
-   */
-  atualizarInformacoes(
+  public atualizarInformacoes(
     name?: string,
     type?: string,
     dimension?: string
@@ -99,10 +63,7 @@ export class Location extends EntidadeBase implements IPesquisavel {
     this.atualizarTimestamp();
   }
 
-  /**
-   * Converte para objeto simples para uso em APIs
-   */
-  toJSON(): any {
+  public toJSON(): any {
     return {
       id: this.id,
       name: this.name,
@@ -115,11 +76,7 @@ export class Location extends EntidadeBase implements IPesquisavel {
     };
   }
 
-  /**
-   * Implementação personalizada do toString() para IPesquisavel
-   * Sobrescreve o método da classe base para fornecer informação mais útil
-   */
-  toString(): string {
+  public toString(): string {
     return `${this.name} (${this.type}) - ${this.dimension}`;
   }
 }
