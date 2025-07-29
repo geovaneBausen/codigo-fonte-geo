@@ -31,6 +31,7 @@ export class Character extends EntidadeBase {
     this.image = image;
     this.episodes = episodes;
   }
+
   public atendeCriterio(criterio: string): boolean {
     const termo = criterio.toLowerCase();
     return super.atendeCriterio(criterio) ||
@@ -42,6 +43,10 @@ export class Character extends EntidadeBase {
 
   public getDescription(): string {
     return `${this.species}: ${this.name} - Status: ${this.status}`;
+  }
+
+  public estaVivo(): boolean {
+    return this.status === 'Alive';
   }
 
   public adicionarEpisodio(episodio: string): void {
