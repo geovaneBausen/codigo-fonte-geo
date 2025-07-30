@@ -27,7 +27,6 @@ export default function UniversalSearch() {
       try {
         await carregarDadosDaApi();
       } catch (error) {
-        // Error will be handled by the hook
       }
     };
     loadData();

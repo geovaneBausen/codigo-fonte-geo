@@ -37,11 +37,7 @@ const LocationCard = memo(function LocationCard({ location }: LocationCardProps)
         </div>
       </div>
 
-      <div className="location-footer">
-        <div className="location-id">
-          ID: {location.id}
-        </div>
-      </div>
+     
     </div>
   );
 });

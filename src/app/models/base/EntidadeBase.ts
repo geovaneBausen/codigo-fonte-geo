@@ -26,8 +26,8 @@ export abstract class EntidadeBase implements IPesquisavel {
    */
   public atendeCriterio(criterio: string): boolean {
     const termo = criterio.toLowerCase();
-    return this.name.toLowerCase().includes(termo) ||
-           this.id.toString().includes(termo);
+    return this.name.toLowerCase().includes(termo)
+    // ||this.id.toString().includes(termo);
   }
 
   public toString(): string {
