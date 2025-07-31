@@ -10,6 +10,8 @@ const PlanetasPage = () => {
   
   const locations = getEntitiesByType('location') as Location[];
 
+  console.log('Dados dos locais:', locations);
+
   if (loading) {
     return (
       <div className="planetas-page">

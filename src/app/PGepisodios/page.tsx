@@ -9,6 +9,8 @@ const EpisodiosPage = () => {
   
   const episodes = getEntitiesByType('episode') as Episode[];
 
+  console.log('Dados dos personagens:', episodes);
+
   if (loading) {
     return (
       <div className="episodios-page">

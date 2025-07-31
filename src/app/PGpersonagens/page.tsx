@@ -10,6 +10,8 @@ const PersonagensPage = () => {
   
   const characters = getEntitiesByType('character') as Character[];
 
+  console.log('Dados dos personagens:', characters);
+
   if (loading) {
     return (
       <div className="personagens-page">
