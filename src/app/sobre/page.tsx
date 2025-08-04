@@ -70,6 +70,7 @@ const SobrePage = () => {
             <p>
               <strong>Geovane Bausen</strong><br/>
               Estudante de TSI<br/>
+        <br>https://github.com/geovaneBausen/codigo-fonte-geo/tree/main</br>
             </p>
             
             <h2>Agradecimentos:</h2>
