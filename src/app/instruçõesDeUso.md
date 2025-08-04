@@ -1,4 +1,3 @@
--Clonar repositorio e instalar dependencias
 
 ```bash
 npm install
