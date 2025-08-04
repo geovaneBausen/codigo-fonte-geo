@@ -15,6 +15,11 @@ export class Character extends EntidadeBase {
     };
     public readonly image: string;
     public readonly episode: string[];
+    
+    /*readonly: O modificador readonly indica que a propriedade status só pode ser atribuída um valor durante a inicialização, ou seja:
+    
+    No momento da declaração (se for atribuído um valor diretamente).
+    Dentro do construtor da classe.*/
 
     constructor(
         id: number,
@@ -53,7 +58,7 @@ export class Character extends EntidadeBase {
         }
 
         const termo = criterio.toLowerCase().trim();
-        
+
         return (
             this.name.toLowerCase().includes(termo) ||
             this.status.toLowerCase().includes(termo) ||
@@ -76,7 +81,7 @@ export class Character extends EntidadeBase {
     isAlive(): boolean {
         return this.status.toLowerCase() === 'alive';
     }
-    
+
     isHuman(): boolean {
         return this.species.toLowerCase() === 'human';
     }
