@@ -1,12 +1,18 @@
-# Rick & Morty Universe Explorer 🛸
+O projeto foi desenvolvido utilizando principalmente TypeScript, React e Next.js, compondo uma arquitetura moderna e robusta para aplicações web. O TypeScript foi adotado para trazer tipagem estática ao JavaScript, aumentando a confiabilidade do código e facilitando a manutenção, especialmente em projetos grandes e orientados a objetos. A estruturação das entidades, interfaces e controllers foi feita aproveitando ao máximo os recursos de tipagem e orientação a objetos que o TypeScript oferece.
 
-Uma aplicação web desenvolvida em **TypeScript** e **React** que explora o multiverso infinito de Rick and Morty através de uma arquitetura orientada a objetos bem estruturada.
+React foi a biblioteca responsável pela construção da interface do usuário, com foco em componentização e reatividade. Todos os elementos de interface, como barra de navegação, filtros, cards de entidades e busca universal, foram criados como componentes reutilizáveis. O padrão de composição foi empregado através do RootLayout, que define a base comum para todas as páginas, garantindo uma experiência consistente e fácil de expandir.
 
-## 📋 Sobre o Projeto
+O Next.js foi utilizado como framework para React, proporcionando recursos avançados como o App Router, renderização do lado do servidor (SSR), roteamento automático e otimização de desempenho. Isso permitiu que a aplicação fosse responsiva, rápida e amigável para mecanismos de busca. Além disso, o Next.js facilitou a organização das páginas e a separação clara entre frontend e lógica de negócio.
 
-Esta aplicação foi desenvolvida como trabalho final interdisciplinar dos componentes **Arquitetura de Software**, **Desenvolvimento Front-end II** e **Programação Orientada a Objetos II** do IFES Campus Santa Teresa.
+No backend da aplicação (lado do modelo e lógica), foi aplicada uma arquitetura orientada a objetos. As principais entidades - Personagem, Episódio e Localização - foram modeladas a partir de uma classe base abstrata chamada EntidadeBase, que implementa a interface IPesquisavel. Cada entidade concreta especializa e estende os métodos e propriedades herdados, respeitando princípios como SRP (responsabilidade única) e OCP (aberto/fechado).
 
-O sistema consome dados da **API pública Rick and Morty**, integrando-os em uma estrutura orientada a objetos composta por classes de **Personagem**, **Episódio** e **Localização**.
+Para centralizar as operações de negócio, foi criado o RickMortyController, um Singleton responsável por consumir a API pública Rick and Morty, armazenar os dados localmente, gerenciar operações CRUD e executar buscas polimórficas. O controller interage com as entidades via interfaces e abstrações, garantindo baixo acoplamento e alta coesão. Estratégias de busca e filtros são aplicadas diretamente pelo controller, seguindo o padrão Strategy.
+
+No frontend, a comunicação entre os componentes e o controller é feita por meio de custom hooks, como o useRickMortyData. Esses hooks utilizam o padrão Observer para garantir reatividade: qualquer mudança nos dados é imediatamente refletida na interface. Dessa forma, os componentes permanecem desacoplados da lógica de negócio, focando apenas na apresentação visual.
+
+A estilização da aplicação foi realizada com SCSS e CSS Modules, permitindo a criação de temas e estilos encapsulados para cada componente. Isso garantiu uma interface moderna, responsiva e de fácil manutenção. Além disso, bibliotecas como React Icons e React Spinners foram usadas para enriquecer a experiência visual e fornecer feedback ao usuário durante operações assíncronas, como carregamento de dados.
+
+Por fim, o projeto aplicou princípios sólidos de design de software, como SOLID e GRASP, para garantir um código limpo, modular e extensível. O uso combinado de TypeScript, React, Next.js, padrões de projeto e boas práticas de arquitetura resultou em uma aplicação eficiente, fácil de evoluir e com ótima experiência para o usuário.
 
 ## 📁 Estrutura do Projeto
 
@@ -43,51 +49,12 @@ src/app/
     └── PGsobre/        # Página sobre o projeto
 ```
 
-## 🏗️ Arquitetura e Padrões
-
-### Princípios SOLID Implementados
-
-- **SRP (Single Responsibility Principle)**: Cada classe possui uma responsabilidade única
-- **OCP (Open/Closed Principle)**: Entidades podem ser estendidas sem modificar código existente
-- **LSP (Liskov Substitution Principle)**: Subclasses podem substituir superclasses sem afetar o funcionamento
-- **ISP (Interface Segregation Principle)**: Interface `IPesquisavel` define contratos específicos
-- **DIP (Dependency Inversion Principle)**: Dependência de abstrações, não de implementações concretas
-
-### Padrões GRASP Aplicados
-
-- **Controller**: `RickMortyController` centraliza operações de negócio
-- **Expert**: Cada classe gerencia seus próprios dados e comportamentos
-- **Baixo Acoplamento**: Sistema modular e independente
-- **Alta Coesão**: Classes com funções bem definidas e organizadas
-- **Polimorfismo**: Métodos polimórficos para operações genéricas
-
-### Padrões de Projeto (Design Patterns)
-
-- **Singleton**: `RickMortyController` garante instância única
-- **Template Method**: `EntidadeBase` define estrutura comum
-- **Strategy**: Diferentes estratégias de busca e filtro
-- **Observer**: Hooks React para reatividade de estado
-- **Composition**: Layout components para estrutura modular
-
-## 🚀 Tecnologias Utilizadas
-
-### Core
+### 
 - **TypeScript**: Tipagem estática e segurança de código
 - **React 19**: Biblioteca para interfaces reativas
 - **Next.js 15**: Framework full-stack com App Router
 
-### Styling & UI
-- **SCSS**: Pré-processador CSS para estilização avançada
-- **CSS Modules**: Escopamento de estilos
-- **React Icons**: Biblioteca de ícones
-
-### Development & Build
-- **Axios**: Cliente HTTP para consumo de APIs
-- **React Spinners**: Componentes de loading
-
 ## 🔧 Funcionalidades
-
-### Core Features
 - **Busca Universal**: Pesquisa em todas as entidades simultaneamente
 - **Filtros Avançados**: Filtro por tipo de entidade (personagens, episódios, localizações)
 - **Navegação Intuitiva**: Roteamento entre diferentes seções
@@ -99,12 +66,6 @@ src/app/
 - **Read**: Visualização detalhada de personagens, episódios e localizações
 - **Update**: Atualização de informações das entidades
 - **Delete**: Remoção de entidades do catálogo
-
-### Funcionalidades Específicas
-- **Visualização de Episódios**: Modal com detalhes dos episódios por personagem
-- **Status Visual**: Indicadores visuais para status dos personagens (vivo/morto/desconhecido)
-- **Contadores Dinâmicos**: Quantidade de episódios por personagem
-- **Informações Detalhadas**: Origem, localização atual, espécie, gênero
 
 ## 🚀 Como Executar
 
