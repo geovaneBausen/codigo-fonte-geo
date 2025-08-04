@@ -54,7 +54,7 @@ src/app/
 - **React 19**: Biblioteca para interfaces reativas
 - **Next.js 15**: Framework full-stack com App Router
 
-## 🔧 Funcionalidades
+## Funcionalidades
 - **Busca Universal**: Pesquisa em todas as entidades simultaneamente
 - **Filtros Avançados**: Filtro por tipo de entidade (personagens, episódios, localizações)
 - **Navegação Intuitiva**: Roteamento entre diferentes seções
@@ -67,7 +67,7 @@ src/app/
 - **Update**: Atualização de informações das entidades
 - **Delete**: Remoção de entidades do catálogo
 
-## 🚀 Como Executar
+## Como Executar
 
 ### Pré-requisitos
 - Node.js (versão 18 ou superior)
