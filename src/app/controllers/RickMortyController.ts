@@ -3,180 +3,194 @@ import { Episode } from '../models/entities/Episode';
 import { Location } from '../models/entities/Location';
 import { IPesquisavel } from '../interfaces/IPesquisavel';
 
+/**
+ * Controller que gerencia o catálogo de entidades 
+ * Usa o padrão Singleton para garantir uma única instância de acesso aos dados.
+ */
 export class RickMortyController {
-  private catalogo: IPesquisavel[] = [];
+    private catalogo: IPesquisavel[] = []; // entidades pesquisaveis (personagens, locais, episódios)
+    private static instance: RickMortyController;
 
-  constructor() {
-    // Initialize empty catalog
-  }
-  async buscarEAdicionarEntidades(): Promise<void> {
-    await this.carregarDadosAPI();
-  }
+    // Construtor privado para implementar o padrão Singleton.
+    private constructor() { }
 
-  buscarPersonagens(criterio: string = ''): Character[] {
-    return this.catalogo
-      .filter(item => item instanceof Character)
-      .filter(item => criterio === '' || item.atendeCriterio(criterio)) as Character[];
-  }
-
-  buscarLocais(criterio: string = ''): Location[] {
-    return this.catalogo
-      .filter(item => item instanceof Location)
-      .filter(item => criterio === '' || item.atendeCriterio(criterio)) as Location[];
-  }
+    /* 
+    Ao tornar o construtor private, você impede que outras partes do seu código criem instâncias da classe RickMortyController diretamente usando new RickMortyController(). Isso força todos os consumidores a usarem o método estático fornecido para obter a instância.*/
 
 
-  buscarEpisodios(criterio: string = ''): Episode[] {
-    return this.catalogo
-      .filter(item => item instanceof Episode)
-      .filter(item => criterio === '' || item.atendeCriterio(criterio)) as Episode[];
-  }
-
-  buscarEntidadePorId(id: number): IPesquisavel | undefined {
-    return this.catalogo.find(item => (item as any).id === id);
-  }
-
-  adicionarEntidade(entidade: IPesquisavel): void {
-    const exists = this.catalogo.some(item => (item as any).id === (entidade as any).id);
-    if (!exists) {
-      this.catalogo.push(entidade);
+    /**
+     * Retorna a única instância da classe RickMortyController.
+     * @returns A instância da classe.
+     */
+    public static getInstance(): RickMortyController {
+        if (!RickMortyController.instance) {
+            RickMortyController.instance = new RickMortyController();
+        }
+        return RickMortyController.instance;
     }
-  }
-
-  removerEntidade(entidade: IPesquisavel): void {
-    const index = this.catalogo.findIndex(item => (item as any).id === (entidade as any).id);
-    if (index > -1) {
-      this.catalogo.splice(index, 1);
+    /**
+  * Limpa o catálogo, removendo todas as entidades.
+  */
+    public limparCatalogo(): void {
+        this.catalogo = [];
     }
-  }
 
-  listarEntidades(array?: IPesquisavel[]): void {
-    const entities = array || this.catalogo;
-    console.log(`Total entities: ${entities.length}`);
-    entities.forEach(entity => console.log(entity.toString()));
-  }
-
-  pesquisarPorCriterio(criterio: string): IPesquisavel[] {
-    return this.catalogo.filter(item => item.atendeCriterio(criterio));
-  }
-
-  adicionarEpisodioPersonagem(personagemId: number, episodioUrl: string): void {
-    const character = this.buscarEntidadePorId(personagemId) as Character;
-    if (character && character instanceof Character) {
-      character.adicionarEpisodio(episodioUrl);
+    /**
+     * Carrega todos os dados da API do Rick and Morty e popula o catálogo.
+     * Esta função é segura para ser chamada múltiplas vezes,
+     * pois só carrega os dados se o catálogo estiver vazio.
+     * @throws Erro se a requisição da API falhar.
+     */
+    public async carregarDadosAPI(): Promise<void> {
+        if (this.catalogo.length > 0) {
+            return;
+        }
+        try {
+            await this.carregarPersonagens();
+            await this.carregarEpisodios();
+            await this.carregarLocalizacoes();
+            console.log('Resumo final:');
+            console.log('Personagens:', this.catalogo.filter(e => e instanceof Character).length);
+            console.log('Episodios:', this.catalogo.filter(e => e instanceof Episode).length);
+            console.log('Localizacoes:', this.catalogo.filter(e => e instanceof Location).length);
+        } catch (error) {
+            console.error("Erro ao carregar dados da API:", error);
+            throw new Error('Falha ao carregar dados da API do Rick and Morty.');
+        }
     }
-  }
 
-  buscarTodos(criterio: string): (Character | Episode | Location)[] {
-    return this.pesquisarPorCriterio(criterio) as (Character | Episode | Location)[];
-  }
-
-  buscarPorEspecie(species: string): Character[] {
-    return this.buscarPersonagens().filter(char => 
-      char.species.toLowerCase().includes(species.toLowerCase())
-    );
-  }
-
-  buscarPersonagensVivos(): Character[] {
-    return this.buscarPersonagens().filter(char => char.estaVivo());
-  }
-
-  buscarEpisodiosPorTemporada(season: number): Episode[] {
-    return this.buscarEpisodios().filter(episode => 
-      episode.episode.includes(`S${season.toString().padStart(2, '0')}`)
-    );
-  }
-
-  buscarLocalizacoesPorTipo(type: string): Location[] {
-    return this.buscarLocais().filter(location => 
-      location.type.toLowerCase().includes(type.toLowerCase())
-    );
-  }
-
-  limparTodos(): void {
-    this.catalogo = [];
-  }
-
-  obterEstatisticasRickMorty() {
-    const characters = this.buscarPersonagens();
-    const episodes = this.buscarEpisodios();
-    const locations = this.buscarLocais();
-
-    return {
-      totalPersonagens: characters.length,
-      totalEpisodios: episodes.length,
-      totalLocalizacoes: locations.length,
-      personagensVivos: characters.filter(char => char.estaVivo()).length,
-      personagensMortos: characters.filter(char => char.status.toLowerCase() === 'dead').length,
-      personagensDesconhecidos: characters.filter(char => char.status.toLowerCase() === 'unknown').length,
-      totalEntidades: this.catalogo.length
-    };
-  }
-
-  async carregarDadosAPI(): Promise<void> {
-    try {
-      await Promise.all([
-        this.carregarPersonagens(),
-        this.carregarEpisodios(),
-        this.carregarLocalizacoes()
-      ]);
-    } catch (error) {
-      throw error;
+    /**
+     * Catálogo completo de entidades.
+     * @returns Um array contendo todas as entidades.
+     */
+    public obterTodasEntidades(): IPesquisavel[] {
+        return this.catalogo;
     }
-  }
 
-  private async carregarPersonagens(): Promise<void> {
-    const response = await fetch('https://rickandmortyapi.com/api/character');
-    const data = await response.json();
-    
-    data.results.slice(0, 20).forEach((char: any) => {
-      const character = new Character(
-        char.id,
-        char.name,
-        char.status,
-        char.species,
-        char.gender,
-        char.origin.name,
-        char.location.name,
-        char.image,
-        char.episode,
-        char.url
-      );
-      this.adicionarEntidade(character);
-    });
-  }
+    /**
+     * Pesquisa no catálogo por um critério específico.
+     * @param criterio O termo de busca.
+     * @returns Um array de entidades que atendem ao critério.
+     */
+    public pesquisarPorCriterio(criterio: string): IPesquisavel[] {
+        if (!criterio) {
+            return this.obterTodasEntidades();
+        }
+        return this.catalogo.filter(item => item.atendeCriterio(criterio));
+    }
 
-  private async carregarEpisodios(): Promise<void> {
-    const response = await fetch('https://rickandmortyapi.com/api/episode');
-    const data = await response.json();
-    
-    data.results.slice(0, 10).forEach((ep: any) => {
-      const episode = new Episode(
-        ep.id,
-        ep.name,
-        ep.episode,
-        ep.air_date,
-        ep.characters,
-        ep.url
-      );
-      this.adicionarEntidade(episode);
-    });
-  }
+    /**
+     * Busca por personagens no catálogo.
+     * @param criterio (Opcional) O termo de busca. Se não fornecido, retorna todos os personagens.
+     * @returns Um array de objetos Character que correspondem ao critério.
+     */
+    public buscarPersonagens(criterio: string = ''): Character[] {
+        return this.catalogo
+            .filter(item => item instanceof Character)
+            .filter(item => criterio === '' || item.atendeCriterio(criterio)) as Character[];
+    }
 
-  private async carregarLocalizacoes(): Promise<void> {
-    const response = await fetch('https://rickandmortyapi.com/api/location');
-    const data = await response.json();
-    
-    data.results.slice(0, 10).forEach((loc: any) => {
-      const location = new Location(
-        loc.id,
-        loc.name,
-        loc.type,
-        loc.dimension,
-        loc.residents,
-        loc.url
-      );
-      this.adicionarEntidade(location);
-    });
-  }
+    /**
+     * 
+     * Busca por locais no catálogo.
+     * @param criterio (Opcional) O termo de busca. Se não fornecido, retorna todos os locais.
+     * @returns Um array de objetos Location que correspondem ao critério.
+     */
+    public buscarLocais(criterio: string = ''): Location[] {
+        return this.catalogo
+            .filter(item => item instanceof Location)
+            .filter(item => criterio === '' || item.atendeCriterio(criterio)) as Location[];
+    }
+
+    /**
+     * Busca por episódios no catálogo.
+     * @param criterio (Opcional) O termo de busca. Se não fornecido, retorna todos os episódios.
+     * @returns Um array de objetos Episode que correspondem ao critério.
+     */
+    public buscarEpisodios(criterio: string = ''): Episode[] {
+        return this.catalogo
+            .filter(item => item instanceof Episode)
+            .filter(item => criterio === '' || item.atendeCriterio(criterio)) as Episode[];
+    }
+
+    /**
+     * Adiciona uma única entidade ao catálogo.
+     * Evita a duplicação verificando se a entidade já existe.
+     * @param entidade A entidade a ser adicionada.
+     */
+    public adicionarEntidade(entidade: IPesquisavel): void {
+        const exists = this.catalogo.some(item =>
+            (item as any).id === (entidade as any).id &&
+            item.constructor.name === entidade.constructor.name
+        );
+        if (!exists) {
+            this.catalogo.push(entidade);
+        }
+    }
+
+    /**
+     * Remove uma entidade do catálogo com base no seu ID.
+     * @param entidade A entidade a ser removida.
+     */
+    public removerEntidade(entidade: IPesquisavel): void {
+        const index = this.catalogo.findIndex(item => (item as any).id === (entidade as any).id);
+        if (index > -1) {
+            this.catalogo.splice(index, 1);
+        }
+    }
+
+
+    /**
+     * Busca uma entidade específica por ID.
+     * @param id O ID da entidade a ser buscada.
+     * @returns A entidade encontrada ou undefined se não existir.
+     */
+    public buscarEntidadePorId(id: number): IPesquisavel | undefined {
+        return this.catalogo.find(item => (item as any).id === id);
+    }
+    private async carregarEpisodios(): Promise<void> {
+        let url = 'https://rickandmortyapi.com/api/episode';
+        while (url) {
+            const response = await fetch(url);
+            const data = await response.json();
+            data.results.forEach((ep: any) => {
+                const episode = new Episode(
+                    ep.id, ep.name, ep.episode, ep.air_date, ep.characters, ep.url
+                );
+                this.adicionarEntidade(episode); // Adiciona o episódio ao catálogo
+            });
+            url = data.info.next; // próxima página ou null
+        }
+    }
+    private async carregarLocalizacoes(): Promise<void> {
+        let url = 'https://rickandmortyapi.com/api/location';
+        while (url) {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            data.results.forEach((loc: any) => {
+                const location = new Location(
+                    loc.id, loc.name, loc.type, loc.dimension, loc.residents, loc.url
+                );
+                this.adicionarEntidade(location);
+            });
+            url = data.info.next;// próxima página ou null
+        }
+    }
+    // Métodos privados para o carregamento dos dados da API
+    private async carregarPersonagens(): Promise<void> {
+        let url = 'https://rickandmortyapi.com/api/character';
+        while (url) {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            data.results.forEach((char: any) => {
+                const character = new Character(
+                    char.id,char.name,char.status,char.species,char.gender,char.origin.name,char.location.name,char.image, char.episode,char.url
+                );
+                this.adicionarEntidade(character);
+            });
+            url = data.info.next;
+        }
+    }
 }

@@ -140,6 +140,146 @@
   100% { transform: rotate(360deg); }
 }
 
+// Controles de filtro e ordenação
+.controls-section {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  
+  .filter-section {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: end;
+    
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      
+      label {
+        font-size: 0.9rem;
+        color: #a0a0a0;
+        font-weight: 500;
+      }
+      
+      .filter-dropdown {
+        padding: 0.75rem 1rem;
+        background: #2a2d3a;
+        border: 1px solid #3a3d4a;
+        border-radius: 8px;
+        color: #ffffff;
+        font-size: 0.9rem;
+        min-width: 200px;
+        transition: all 0.3s ease;
+        
+        &:focus {
+          outline: none;
+          border-color: #ff6b35;
+          box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+        }
+        
+        option {
+          background: #2a2d3a;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+  
+  .sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    
+    label {
+      font-size: 0.9rem;
+      color: #a0a0a0;
+      font-weight: 500;
+    }
+    
+    .sort-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      
+      .sort-btn {
+        padding: 0.5rem 1rem;
+        background: #2a2d3a;
+        border: 1px solid #3a3d4a;
+        border-radius: 6px;
+        color: #ffffff;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background: #3a3d4a;
+          border-color: #4a4d5a;
+        }
+        
+        &.active {
+          background: linear-gradient(135deg, #ff6b35, #f7931e);
+          border-color: #ff6b35;
+          color: #ffffff;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+.results-info {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  
+  p {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    
+    strong {
+      color: #ff6b35;
+      font-weight: 600;
+    }
+  }
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #a0a0a0;
+  
+  h3 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  p {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .clear-search-btn {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .planetas-page {
     padding: 1rem;
@@ -156,6 +296,26 @@
     .locations-grid {
       grid-template-columns: 1fr;
       gap: 1rem;
+    }
+    
+    .controls-section {
+      .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+        
+        .filter-group .filter-dropdown {
+          min-width: 100%;
+        }
+      }
+      
+      .sort-controls {
+        flex-direction: column;
+        align-items: stretch;
+        
+        .sort-buttons {
+          justify-content: center;
+        }
+      }
     }
   }
 }

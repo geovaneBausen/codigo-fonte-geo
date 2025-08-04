@@ -1,251 +1,466 @@
-//NavBar com tema Rick and Morty
-
+// NavBar profissional responsivo inspirado no SoundCloud
 .NavBar {
-    background: linear-gradient(135deg, #1a2332 0%, #0d1117 50%, #1a2332 100%);
-    padding: 1rem 3%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid rgba(0, 255, 146, 0.3);
-    box-shadow: 
-        0 4px 20px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    position: relative;
+    background: #1a1a1a;
+    border-bottom: 1px solid #2a2a2a;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 
-    // Efeito de partículas de fundo
-    &::before {
-        content: '';
-        position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 64px;
+
+    // Brand Section
+    .nav-brand {
+        flex-shrink: 0;
+        z-index: 101;
+
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            .brand-logo {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                
+                svg {
+                    width: 32px;
+                    height: 32px;
+                }
+            }
+
+            .brand-text {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+
+                .brand-name {
+                    font-size: 16px;
+                    font-weight: 700;
+                    color: #ffffff;
+                    line-height: 1;
+                    letter-spacing: -0.01em;
+                }
+
+                .brand-subtitle {
+                    font-size: 11px;
+                    font-weight: 500;
+                    color: #999999;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    line-height: 1;
+                }
+            }
+        }
+    }
+
+    // Main Navigation
+    .main-navigation {
+        flex: 1;
+        max-width: 600px;
+        margin: 0 40px;
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                .nav-link {
+                    display: flex;
+                    align-items: center;
+                    padding: 8px 16px;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    transition: all 0.2s ease;
+                    position: relative;
+
+                    .nav-text {
+                        font-size: 14px;
+                        font-weight: 500;
+                        color: #cccccc;
+                        transition: color 0.2s ease;
+                    }
+
+                    &:hover {
+                        background: #2a2a2a;
+                        
+                        .nav-text {
+                            color: #ffffff;
+                        }
+                    }
+
+                    &:active {
+                        transform: translateY(1px);
+                    }
+
+                    // Active state
+                    &.active {
+                        background: #333333;
+                        
+                        .nav-text {
+                            color: #ff6b35;
+                            font-weight: 600;
+                        }
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            left: 16px;
+                            right: 16px;
+                            height: 2px;
+                            background: #ff6b35;
+                            border-radius: 1px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Actions Section
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        z-index: 101;
+
+        .search-toggle,
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            color: #cccccc;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: #2a2a2a;
+                color: #ffffff;
+            }
+
+            &:active {
+                transform: translateY(1px);
+            }
+        }
+
+        .menu-toggle {
+            flex-direction: column;
+            gap: 3px;
+            display: none; // Escondido por padrão no desktop
+            
+            span {
+                width: 16px;
+                height: 2px;
+                background: currentColor;
+                border-radius: 1px;
+                transition: all 0.3s ease;
+            }
+
+            &.active {
+                span:nth-child(1) {
+                    transform: translateY(5px) rotate(45deg);
+                }
+                
+                span:nth-child(2) {
+                    opacity: 0;
+                }
+                
+                span:nth-child(3) {
+                    transform: translateY(-5px) rotate(-45deg);
+                }
+            }
+
+            &:hover:not(.active) {
+                span:nth-child(1) {
+                    transform: translateY(-1px);
+                }
+                
+                span:nth-child(3) {
+                    transform: translateY(1px);
+                }
+            }
+        }
+    }
+
+    // Mobile overlay
+    .mobile-overlay {
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background: 
-            radial-gradient(circle at 20% 50%, rgba(0, 255, 146, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(157, 78, 221, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 40% 80%, rgba(255, 184, 77, 0.1) 0%, transparent 50%);
-        pointer-events: none;
-    }
-
-    .nav-brand {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        z-index: 2;
-        position: relative;
-
-        .portal-logo {
-            font-size: 2rem;
-            animation: portal-spin 4s linear infinite;
-            filter: drop-shadow(0 0 10px rgba(0, 255, 146, 0.5));
-        }
-
-        .page-title {
-            color: #ffffff;
-            margin: 0;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-weight: 700;
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-
-            .rick-text {
-                font-size: 1.8rem;
-                color: #00ff92;
-                text-shadow: 
-                    0 0 10px rgba(0, 255, 146, 0.5),
-                    2px 2px 4px rgba(0, 0, 0, 0.5);
-                letter-spacing: -0.02em;
-            }
-
-            .and-text {
-                font-size: 1rem;
-                color: rgba(255, 255, 255, 0.7);
-                margin: 0 0.25rem;
-                align-self: center;
-            }
-
-            .morty-text {
-                font-size: 1.8rem;
-                color: #ffb84d;
-                text-shadow: 
-                    0 0 10px rgba(255, 184, 77, 0.5),
-                    2px 2px 4px rgba(0, 0, 0, 0.5);
-                letter-spacing: -0.02em;
-            }
-
-            .subtitle {
-                font-size: 0.75rem;
-                color: rgba(255, 255, 255, 0.6);
-                font-weight: 400;
-                margin-top: 0.25rem;
-                letter-spacing: 0.1em;
-                text-transform: uppercase;
-            }
-        }
-    }
-
-    .nav-links {
-        list-style: none;
-        display: flex;
-        gap: 0.5rem;
-        margin: 0;
-        padding: 0;
-        z-index: 2;
-        position: relative;
-
-        .nav-link {
-            color: #ffffff;
-            text-decoration: none;
-            padding: 0.75rem 1.25rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
-
-            &::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: -100%;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-                transition: left 0.5s ease;
-            }
-
-            .nav-icon {
-                font-size: 1.2rem;
-                transition: transform 0.3s ease;
-            }
-
-            .nav-text {
-                font-size: 0.85rem;
-                letter-spacing: 0.02em;
-                opacity: 0.9;
-            }
-
-            &:hover {
-                background: rgba(0, 255, 146, 0.1);
-                border-color: rgba(0, 255, 146, 0.3);
-                color: #00ff92;
-                transform: translateY(-2px);
-                box-shadow: 
-                    0 8px 25px rgba(0, 255, 146, 0.2),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-
-                &::before {
-                    left: 100%;
-                }
-
-                .nav-icon {
-                    transform: scale(1.1);
-                }
-            }
-
-            &:focus {
-                outline: 2px solid #00ff92;
-                outline-offset: 2px;
-            }
-
-            &:active {
-                transform: translateY(0);
-            }
-        }
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        z-index: 99;
+        display: none;
     }
 }
 
-// Animações
-@keyframes portal-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-// Responsividade
+// Responsive Design
+// Tablet - 768px e abaixo
 @media (max-width: 768px) {
     .NavBar {
-        padding: 0.75rem 2%;
-        flex-wrap: wrap;
-        gap: 1rem;
+        padding: 0 16px;
+        height: 56px;
 
         .nav-brand {
-            .portal-logo {
-                font-size: 1.5rem;
-            }
+            .brand-link {
+                gap: 8px;
 
-            .page-title {
-                .rick-text, .morty-text {
-                    font-size: 1.4rem;
+                .brand-logo svg {
+                    width: 28px;
+                    height: 28px;
                 }
 
-                .subtitle {
-                    font-size: 0.65rem;
+                .brand-text {
+                    .brand-name {
+                        font-size: 14px;
+                    }
+
+                    .brand-subtitle {
+                        font-size: 10px;
+                    }
                 }
             }
         }
 
-        .nav-links {
-            gap: 0.25rem;
+        .main-navigation {
+            // Mobile menu
+            position: fixed;
+            top: 56px;
+            right: -300px;
+            width: 280px;
+            height: calc(100vh - 56px);
+            background: #1a1a1a;
+            border-left: 1px solid #2a2a2a;
+            margin: 0;
+            transition: right 0.3s ease;
+            overflow-y: auto;
 
-            .nav-link {
-                padding: 0.6rem 1rem;
-                font-size: 0.85rem;
+            &.mobile-open {
+                right: 0;
+            }
 
-                .nav-text {
-                    display: none;
+            .nav-links {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 24px 0;
+
+                li {
+                    .nav-link {
+                        padding: 16px 24px;
+                        border-radius: 0;
+                        justify-content: flex-start;
+                        border-bottom: 1px solid #2a2a2a;
+
+                        .nav-text {
+                            font-size: 16px;
+                        }
+
+                        &:hover {
+                            background: #2a2a2a;
+                        }
+
+                        &.active {
+                            background: #2a2a2a;
+                            border-left: 3px solid #ff6b35;
+
+                            &::after {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .nav-actions {
+            gap: 4px;
+
+            .search-toggle {
+                width: 36px;
+                height: 36px;
+            }
+
+            .menu-toggle {
+                display: flex;
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        .mobile-overlay {
+            display: block;
+        }
+    }
+}
+
+// Mobile pequeno - 640px e abaixo
+@media (max-width: 640px) {
+    .NavBar {
+        .main-navigation {
+            width: 100%;
+            right: -100%;
+            
+            &.mobile-open {
+                right: 0;
+            }
+        }
+    }
+}
+
+// Mobile extra pequeno - 480px e abaixo
+@media (max-width: 480px) {
+    .NavBar {
+        padding: 0 12px;
+        height: 52px;
+
+        .nav-brand {
+            .brand-link {
+                gap: 6px;
+
+                .brand-logo svg {
+                    width: 24px;
+                    height: 24px;
                 }
 
-                .nav-icon {
-                    font-size: 1.1rem;
+                .brand-text {
+                    .brand-name {
+                        font-size: 13px;
+                    }
+
+                    .brand-subtitle {
+                        display: none; // Esconder subtitle em telas muito pequenas
+                    }
+                }
+            }
+        }
+
+        .main-navigation {
+            top: 52px;
+            height: calc(100vh - 52px);
+
+            .nav-links {
+                padding: 16px 0;
+
+                li .nav-link {
+                    padding: 12px 16px;
+
+                    .nav-text {
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+
+        .nav-actions {
+            .search-toggle,
+            .menu-toggle {
+                width: 32px;
+                height: 32px;
+            }
+
+            .menu-toggle span {
+                width: 14px;
+            }
+        }
+    }
+}
+
+// Mobile ultra pequeno - 360px e abaixo
+@media (max-width: 360px) {
+    .NavBar {
+        padding: 0 8px;
+
+        .nav-brand {
+            .brand-link {
+                .brand-text {
+                    .brand-name {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+
+        .nav-actions {
+            .search-toggle,
+            .menu-toggle {
+                width: 28px;
+                height: 28px;
+            }
+        }
+    }
+}
+
+// Landscape em dispositivos pequenos
+@media (max-height: 500px) and (orientation: landscape) {
+    .NavBar {
+        .main-navigation {
+            .nav-links {
+                padding: 8px 0;
+
+                li .nav-link {
+                    padding: 8px 16px;
                 }
             }
         }
     }
 }
 
-@media (max-width: 480px) {
+// Dark theme enhancements
+@media (prefers-color-scheme: dark) {
     .NavBar {
-        padding: 0.5rem 1%;
+        background: #0f0f0f;
+        border-bottom-color: #1a1a1a;
+    }
+}
 
-        .nav-brand {
-            gap: 0.5rem;
+// Melhorias de acessibilidade
+@media (prefers-reduced-motion: reduce) {
+    .NavBar * {
+        transition: none !important;
+    }
+}
 
-            .portal-logo {
-                font-size: 1.25rem;
-            }
-
-            .page-title {
-                .rick-text, .morty-text {
-                    font-size: 1.2rem;
-                }
-
-                .and-text {
-                    font-size: 0.9rem;
-                }
-
-                .subtitle {
-                    font-size: 0.6rem;
-                }
-            }
-        }
-
-        .nav-links {
-            .nav-link {
-                padding: 0.5rem 0.75rem;
-
-                .nav-icon {
-                    font-size: 1rem;
-                }
-            }
+// High contrast
+@media (prefers-contrast: high) {
+    .NavBar {
+        border-bottom-width: 2px;
+        
+        .nav-links .nav-link.active .nav-text {
+            color: #ffffff;
         }
     }
+}
+
+// Smooth transitions for theme changes
+* {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }

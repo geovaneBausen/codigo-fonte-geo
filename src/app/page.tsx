@@ -6,8 +6,6 @@ import FilterSelect from './componentes/FilterSelect';
 import EntityCard from './componentes/EntityCard';
 import './page.scss';
 
-// Main page demonstrating the complete system
-// Flow: API → Hook → State → Components → UI
 export default function Home() {
     const {
         entities,
@@ -17,9 +15,7 @@ export default function Home() {
         error,
         handleSearch,
         handleFilterChange,
-        getEntitiesByType
     } = useRickMortyData();
-
     if (loading) {
         return (
             <div className="home loading-state">

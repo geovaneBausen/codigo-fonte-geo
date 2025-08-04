@@ -4,41 +4,158 @@
     margin: 0px;
 }
 
-body {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-    color: #ffffff;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    font-weight: 400;
-    line-height: 1.6;
-    min-height: 100vh;
-    overflow-x: hidden;
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden; // Evita scroll horizontal
 }
 
-// Scrollbar personalizada
+body {
+    background: #0f0f0f;
+    color: #ffffff;
+    font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden; // Evita scroll horizontal
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+    // Evita o zoom ao focar em inputs no iOS
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+// Layout principal para dar espaçamento ao header
+main {
+    min-height: calc(100vh - 64px);
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+    width: 100%;
+    
+    // Responsivo para diferentes alturas de header
+    @media (max-width: 768px) {
+        min-height: calc(100vh - 56px);
+    }
+    
+    @media (max-width: 480px) {
+        min-height: calc(100vh - 52px);
+    }
+}
+
+// Scrollbar personalizada (estilo SoundCloud)
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(18, 25, 38, 0.3);
+    background: #1a1a1a;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #00ff92, #00d4aa);
-    border-radius: 4px;
+    background: #333333;
+    border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #00d4aa, #00ff92);
+    background: #444444;
+}
+
+::-webkit-scrollbar-corner {
+    background: #1a1a1a;
 }
 
 // Seleção de texto personalizada
 ::selection {
-    background: rgba(0, 255, 146, 0.3);
+    background: rgba(255, 107, 53, 0.3);
     color: #ffffff;
 }
 
 ::-moz-selection {
-    background: rgba(0, 255, 146, 0.3);
+    background: rgba(255, 107, 53, 0.3);
     color: #ffffff;
+}
+
+// Reset para links
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+// Reset para botões
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+// Reset para inputs
+input, textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+    background: transparent;
+    outline: none;
+}
+
+// Focus styles mais profissionais
+:focus-visible {
+    outline: 2px solid #ff6b35;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+// Container responsivo padrão
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    
+    @media (max-width: 768px) {
+        padding: 0 16px;
+    }
+    
+    @media (max-width: 480px) {
+        padding: 0 12px;
+    }
+}
+
+// Utilitários responsivos
+.hide-mobile {
+    @media (max-width: 768px) {
+        display: none !important;
+    }
+}
+
+.hide-desktop {
+    @media (min-width: 769px) {
+        display: none !important;
+    }
+}
+
+.show-mobile {
+    display: none !important;
+    
+    @media (max-width: 768px) {
+        display: block !important;
+    }
+}
+
+.show-mobile-flex {
+    display: none !important;
+    
+    @media (max-width: 768px) {
+        display: flex !important;
+    }
+}
+
+// Prevenção de scroll durante overlays
+body.no-scroll {
+    overflow: hidden;
+    
+    @media (max-width: 768px) {
+        position: fixed;
+        width: 100%;
+    }
 }

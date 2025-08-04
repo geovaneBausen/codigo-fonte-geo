@@ -1,29 +1,27 @@
 'use client';
-import { useCallback, memo } from 'react';
+import { memo } from 'react';
 import './index.scss';
 import { Character } from '../../models/entities/Character';
 
 export interface Props {
   character: Character;
+  onEpisodesClick?: (character: Character) => void;
 }
 
-const CharacterCard = memo(function CharacterCard({ character }: Props) {
-
-  const getStatusClass = useCallback(() => {
-    switch (character.status.toLowerCase()) {
+const CharacterCard = memo(function CharacterCard({ character, onEpisodesClick }: Props) {
+  // Função para determinar classe do status
+  const getStatusClass = () => {
+    switch (character.status?.toLowerCase()) {
       case 'alive': return 'status-alive';
       case 'dead': return 'status-dead';
       default: return 'status-unknown';
     }
-  }, [character.status]);
+  };
 
   return (
     <li className='character-card'>
       <div className="character-image">
-        <img 
-          src={character.image} 
-          alt={character.name} 
-        />
+        <img src={character.image} alt={character.name} />
       </div>
 
       <div className="character-info">
@@ -48,6 +46,17 @@ const CharacterCard = memo(function CharacterCard({ character }: Props) {
             <span className="episodes-label">Episódios:</span>
             <span className="episodes-count">{character.episodes.length}</span>
           </div>
+
+          {onEpisodesClick && (
+            <div className="character-actions">
+              <button 
+                className="episodes-btn"
+                onClick={() => onEpisodesClick(character)}
+              >
+                Ver Episódios
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </li>

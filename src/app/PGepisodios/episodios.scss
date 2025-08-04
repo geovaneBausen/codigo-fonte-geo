@@ -8,6 +8,103 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
+// Cabeçalho da página
+.page-header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #00d4aa 0%, #007991 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+  }
+
+  .page-description {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+// Seção de controles
+.controls-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+  background: rgba(0, 212, 170, 0.1);
+  padding: 20px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 212, 170, 0.3);
+
+  .sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+
+    label {
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .sort-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+
+      .sort-btn {
+        background: rgba(0, 212, 170, 0.2);
+        color: white;
+        border: 1px solid rgba(0, 212, 170, 0.5);
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+        font-weight: 500;
+
+        &:hover {
+          background: rgba(0, 212, 170, 0.3);
+          border-color: #00d4aa;
+        }
+
+        &.active {
+          background: linear-gradient(135deg, #00d4aa 0%, #007991 100%);
+          border-color: #00d4aa;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+// Informações dos resultados
+.results-info {
+  margin-bottom: 20px;
+  text-align: center;
+
+  p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    margin: 0;
+
+    strong {
+      color: #00d4aa;
+      font-weight: bold;
+    }
+  }
+}
+
 // Grid dos episódios - Estilo similar à home
 .episodes-grid {
   display: grid;
@@ -93,7 +190,31 @@
     }
 
     .characters-count {
-      margin-bottom: 0;
+      margin-bottom: 12px;
+    }
+
+    .episode-actions {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0, 212, 170, 0.3);
+
+      .details-btn {
+        background: linear-gradient(135deg, #00d4aa 0%, #007991 100%);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        width: 100%;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 212, 170, 0.4);
+        }
+      }
     }
   }
 }
@@ -150,8 +271,25 @@
   border: 1px solid rgba(0, 212, 170, 0.3);
 
   p {
-    margin: 0;
+    margin: 0 0 20px 0;
     font-weight: 500;
+  }
+
+  .clear-search-btn {
+    background: linear-gradient(135deg, #00d4aa 0%, #007991 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 212, 170, 0.4);
+    }
   }
 }
 
@@ -159,6 +297,25 @@
 @media (max-width: 768px) {
   .episodios-page {
     padding: 10px;
+
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .controls-section {
+      padding: 15px;
+
+      .sort-controls {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+
+        .sort-buttons {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    }
   }
 
   .episodes-grid {
@@ -195,6 +352,20 @@
 @media (max-width: 480px) {
   .episodios-page {
     padding: 8px;
+
+    .page-header h1 {
+      font-size: 1.8rem;
+    }
+
+    .controls-section {
+      padding: 12px;
+      gap: 15px;
+
+      .sort-controls .sort-buttons .sort-btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+      }
+    }
   }
 
   .episode-card {

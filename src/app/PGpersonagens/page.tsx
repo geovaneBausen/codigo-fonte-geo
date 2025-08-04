@@ -1,16 +1,39 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRickMortyData } from '../hooks/useRickMortyData';
-import CharacterCard from '../componentes/CharacterCard';
 import { Character } from '../models/entities/Character';
+import CharacterCard from '../componentes/CharacterCard';
+import CharacterModal from '../componentes/CharacterModal';
 import './personagens.scss';
 
 const PersonagensPage = () => {
-  const { entities, loading, error, getEntitiesByType } = useRickMortyData();
-  
-  const characters = getEntitiesByType('character') as Character[];
+  const { entities, loading, error, handleFilterChange } = useRickMortyData();
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log('Dados dos personagens:', characters);
+  useEffect(() => {
+    handleFilterChange('character');
+  }, [handleFilterChange]);
+
+  // Filtra os personagens diretamente do entities
+  const characters = entities as Character[];
+
+  // Remover personagens duplicados pelo id
+  const uniqueCharacters = characters.filter(
+    (char, idx, arr) => arr.findIndex(c => c.id === char.id) === idx
+  );
+
+  console.log('Dados dos personagens:', uniqueCharacters);
+
+  const handleCharacterClick = (character: Character) => {
+    setSelectedCharacter(character);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedCharacter(null);
+  };
 
   if (loading) {
     return (
@@ -33,15 +56,15 @@ const PersonagensPage = () => {
       </div>
     );
   }
-
   return (
     <div className="personagens-page">
-      <div className="characters-grid">
-        {characters.length > 0 ? (
-          characters.map((character) => (
-            <CharacterCard 
-              key={character.id} 
+      <ul className="characters-grid">
+        {uniqueCharacters.length > 0 ? (
+          uniqueCharacters.map((character) => (
+            <CharacterCard
+              key={character.id}
               character={character}
+              onEpisodesClick={handleCharacterClick}
             />
           ))
         ) : (
@@ -50,9 +73,15 @@ const PersonagensPage = () => {
             <p>Tente ajustar sua busca ou limpar os filtros</p>
           </div>
         )}
-      </div>
+      </ul>
+      
+      {/* Modal de episódios do personagem */}
+      <CharacterModal 
+        character={selectedCharacter}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
-};
-
+}
 export default PersonagensPage;

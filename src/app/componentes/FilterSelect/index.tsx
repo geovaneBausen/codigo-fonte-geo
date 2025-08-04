@@ -29,3 +29,13 @@ const FilterSelect: React.FC<FilterSelectProps> = ({ filterType, onFilterChange 
 };
 
 export default FilterSelect;
+
+
+
+/**Componente Pai → Passa filterType e onFilterChange
+FilterSelect → Recebe props e renderiza o select
+index.scss → Aplica estilos visuais
+Usuário → Interage com o dropdown
+onChange → Captura mudança
+onFilterChange → Callback para o pai
+Componente Pai → Atualiza estado e re-renderiza */

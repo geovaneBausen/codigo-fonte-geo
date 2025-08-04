@@ -5,72 +5,82 @@ import { Episode } from '../../models/entities/Episode';
 import { Location } from '../../models/entities/Location';
 import './entity-card.scss';
 
+// Union type para todas as entidades suportadas
 export type EntityData = Character | Episode | Location;
 
 interface EntityCardProps {
     entity: EntityData;
 }
 
-// Tipo para a configuração de renderização
-type RenderConfig = {
-    className: string;
-    image?: string;
-    fields: Array<{ label: string; value: string }>;
-};
-
+/**
+ * Componente genérico para renderizar diferentes tipos de entidades
+  renderização polimórfica
+ */
 const EntityCard: React.FC<EntityCardProps> = ({ entity }) => {
-    const getEntityType = (entity: EntityData): 'character' | 'location' | 'episode' => {
+    
+    // Detecta o tipo da entidade usando duck typing
+    const getEntityType = (entity: EntityData) => {
         if ('species' in entity && 'image' in entity) return 'character';
         if ('dimension' in entity && 'residents' in entity) return 'location';
-        if ('episode' in entity && 'air_date' in entity) return 'episode';
-        throw new Error('Tipo de entidade desconhecido');
+        return 'episode'; // fallback para episode
     };
 
-    // Configuração de renderização baseada em tipo
-    const renderConfigs: Record<string, (entity: any) => RenderConfig> = {
-        character: (entity: Character): RenderConfig => ({
-            className: 'character-card',
-            image: entity.image,
-            fields: [
-                { label: 'Espécie', value: entity.species },
-                { label: 'Status', value: entity.status },
-                { label: 'Gênero', value: entity.gender },
-                { label: 'Origem', value: entity.origin }
-            ]
-        }),
-        location: (entity: Location): RenderConfig => ({
-            className: 'location-card',
-            fields: [
-                { label: 'Tipo', value: entity.type },
-                { label: 'Dimensão', value: entity.dimension },
-                { label: 'Residentes', value: entity.residents.length.toString() }
-            ]
-        }),
-        episode: (entity: Episode): RenderConfig => ({
-            className: 'episode-card',
-            fields: [
-                { label: 'Episódio', value: entity.episode },
-                { label: 'Data', value: entity.air_date },
-                { label: 'Personagens', value: entity.characters.length.toString() }
-            ]
-        })
+    // Renderiza campos específicos baseado no tipo da entidade
+    const renderFields = () => {
+        const type = getEntityType(entity);
+        
+        switch (type) {
+            case 'character': {
+                const char = entity as Character;
+                return (
+                    <>
+                        <p><strong>Espécie:</strong> {char.species}</p>
+                        <p><strong>Status:</strong> {char.status}</p>
+                        <p><strong>Gênero:</strong> {char.gender}</p>
+                        <p><strong>Origem:</strong> {char.origin}</p>
+                    </>
+                );
+            }
+            case 'location': {
+                const loc = entity as Location;
+                return (
+                    <>
+                        <p><strong>Tipo:</strong> {loc.type}</p>
+                        <p><strong>Dimensão:</strong> {loc.dimension}</p>
+                        <p><strong>Residentes:</strong> {loc.residents.length}</p>
+                    </>
+                );
+            }
+            case 'episode': {
+                const ep = entity as Episode;
+                return (
+                    <>
+                        <p><strong>Episódio:</strong> {ep.episode}</p>
+                        <p><strong>Data:</strong> {ep.air_date}</p>
+                        <p><strong>Personagens:</strong> {ep.characters.length}</p>
+                    </>
+                );
+            }
+        }
     };
 
     const entityType = getEntityType(entity);
-    const config = renderConfigs[entityType](entity);
+    const isCharacter = entityType === 'character';
 
     return (
-        <div className={`entity-card ${config.className}`}>
-            {config.image && (
-                <img src={config.image} alt={entity.name} className="character-image" />
+        <div className={`entity-card ${entityType}-card`}>
+            {/* Imagem apenas para personagens */}
+            {isCharacter && (
+                <img 
+                    src={(entity as Character).image} 
+                    alt={entity.name} 
+                    className="character-image" 
+                />
             )}
+            
             <div className="card-content">
                 <h3>{entity.name}</h3>
-                {config.fields.map((field, index) => (
-                    <p key={index}>
-                        <strong>{field.label}:</strong> {field.value}
-                    </p>
-                ))}
+                {renderFields()}
             </div>
         </div>
     );
