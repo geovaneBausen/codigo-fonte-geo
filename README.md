@@ -1,6 +1,6 @@
 # Rick & Morty Universe Explorer 🛸
 
-Uma aplicação web moderna desenvolvida em **TypeScript** e **React** que explora o multiverso infinito de Rick and Morty através de uma arquitetura orientada a objetos bem estruturada.
+Uma aplicação web desenvolvida em **TypeScript** e **React** que explora o multiverso infinito de Rick and Morty através de uma arquitetura orientada a objetos bem estruturada.
 
 ## 📋 Sobre o Projeto
 
@@ -56,9 +56,7 @@ O sistema consome dados da **API pública Rick and Morty**, integrando-os em uma
 src/app/
 ├── componentes/           # Componentes React reutilizáveis
 │   ├── CharacterCard/     # Cartão de personagem
-│   ├── CharacterModal/    # Modal de detalhes do personagem
 │   ├── EntityCard/        # Cartão genérico de entidade
-│   ├── EpisodeModal/      # Modal de episódios
 │   ├── FilterSelect/      # Seletor de filtros
 │   ├── LocationCard/      # Cartão de localização
 │   ├── NavBar/           # Barra de navegação
@@ -75,8 +73,11 @@ src/app/
 │   │   └── EntidadeBase.ts    # Classe base para entidades
 │   └── entities/
 │       ├── Character.ts       # Modelo de personagem
+│             └── Alien.ts        
+│             └── HUman.ts       
 │       ├── Episode.ts         # Modelo de episódio
 │       └── Location.ts        # Modelo de localização
+
 └── PG*/                # Páginas da aplicação
     ├── PGepisodios/    # Página de episódios
     ├── PGpersonagens/  # Página de personagens
@@ -139,11 +140,9 @@ http://localhost:3000
 ```bash
 npm run dev        # Executa em modo desenvolvimento
 npm run build      # Gera build de produção
-npm run start      # Executa build de produção
 npm run clean      # Limpa arquivos temporários
 npm run fresh      # Reinstala dependências
 npm run type-check # Verificação de tipos TypeScript
-npm run test:watch # Executa testes em modo watch
 ```
 
 
