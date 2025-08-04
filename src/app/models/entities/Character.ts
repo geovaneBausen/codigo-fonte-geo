@@ -20,7 +20,7 @@ export class Character extends EntidadeBase {
         id: number,
         name: string,
         url: string,
-        created: string, 
+        created: string,
         status: string,
         species: string,
         type: string,
@@ -30,7 +30,7 @@ export class Character extends EntidadeBase {
         image: string,
         episode: string[]
     ) {
-        super(id, name, url, created);
+        super(id, name, url);
 
         // Inicializa propriedades específicas do personagem
         this.status = status;
@@ -63,6 +63,10 @@ export class Character extends EntidadeBase {
             this.origin.name.toLowerCase().includes(termo) ||
             this.location.name.toLowerCase().includes(termo)
         );
+    }
+
+    public getDescription(): string {
+        return `${this.species}: ${this.name} - Status: ${this.status}`;
     }
 
     toString(): string {

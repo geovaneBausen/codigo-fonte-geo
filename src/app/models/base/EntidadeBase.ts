@@ -1,59 +1,46 @@
 import { IPesquisavel } from '../../interfaces/IPesquisavel';
 
 /**
- * Classe base abstrata para todas as entidades do sistema
+ * Classe abstrata que serve como base para todas as entidades do Catalogo 
  * 
- * Implementa a interface IPesquisavel e fornece funcionalidades
- * comuns para todas as entidades (Character, Episode, Location)
+ * Fornece funcionalidades comuns como:
+ * - Identificação única (id)
+ * - Nome da entidade
+ * - URL da API de origem
+ * - Timestamps de criação e atualização
+ * - Implementação básica de busca
  */
 export abstract class EntidadeBase implements IPesquisavel {
-    public readonly id: number;
-    public readonly name: string;
-    public readonly url: string;
-    public readonly created: string;
+  // Propriedades comuns a todas as entidades
+  public id: number;        
+  public name: string;     
+  public url: string;       
 
-    constructor(
-        id: number,
-        name: string,
-        url: string,
-        created: string
-    ) {
-        this.id = id;
-        this.name = name;
-        this.url = url;
-        this.created = created;
-    }
+  // Timestamps para auditoria e controle de versão
+  public criadoEm: Date;    
+  public atualizadoEm: Date; 
 
-    /**
-     * Implementação padrão do critério de busca
-     * Busca pelo nome da entidade (case-insensitive)
-     */
-    atendeCriterio(criterio: string): boolean {
-        if (!criterio || criterio.trim() === '') {
-            return true; // Se não há critério, retorna todos
-        }
-        
-        return this.name
-            .toLowerCase()
-            .includes(criterio.toLowerCase().trim());
-    }
+  constructor(id: number, name: string, url: string) {
+    this.id = id;
+    this.name = name;
+    this.url = url;
+    
+    this.criadoEm = new Date();
+    this.atualizadoEm = new Date();
+  }
 
-    /**
-     * Representação em string da entidade
-     */
-    toString(): string {
-        return `${this.constructor.name}(id: ${this.id}, name: "${this.name}")`;
-    }
+  protected atualizarTimestamp(): void {
+    this.atualizadoEm = new Date();
+  }
 
-    /**
-     * Método para obter dados básicos da entidade
-     */
-    getDadosBasicos() {
-        return {
-            id: this.id,
-            name: this.name,
-            url: this.url,
-            created: this.created
-        };
-    }
+  public atendeCriterio(criterio: string): boolean {
+    const termo = criterio.toLowerCase();
+    return this.name.toLowerCase().includes(termo);
+  }
+
+  public toString(): string {
+    return `${this.constructor.name} (ID: ${this.id}, Nome: ${this.name})`;
+  }
+
+  public abstract getDescription(): string;
 }

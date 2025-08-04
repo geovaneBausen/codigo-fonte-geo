@@ -9,7 +9,6 @@ import './localizacoes.scss';
 const LocalizacoesPage = () => {
   const { entities, loading, error, handleFilterChange, handleSearch, searchTerm } = useRickMortyData();
   const [sortBy, setSortBy] = useState<'name' | 'type' | 'dimension'>('name');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [dimensionFilter, setDimensionFilter] = useState<string>('all');
 
@@ -37,7 +36,7 @@ const LocalizacoesPage = () => {
       filtered = filtered.filter(location => location.dimension === dimensionFilter);
     }
 
-    // Ordenação
+    // Ordenação (sempre crescente)
     filtered.sort((a, b) => {
       let aValue: string | number;
       let bValue: string | number;
@@ -59,15 +58,11 @@ const LocalizacoesPage = () => {
           return 0;
       }
 
-      if (sortOrder === 'asc') {
-        return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
-      } else {
-        return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
-      }
+      return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
     });
 
     return filtered;
-  }, [locations, typeFilter, dimensionFilter, sortBy, sortOrder]);
+  }, [locations, typeFilter, dimensionFilter, sortBy]);
 
   // Opções únicas para filtros
   const uniqueTypes = useMemo(() => {
@@ -103,7 +98,6 @@ const LocalizacoesPage = () => {
   return (
     <div className="localizacoes-page">
       <header className="page-header">
-        <h1>Localizações do Rick and Morty</h1>
         <p>Explore os diferentes planetas, dimensões e locais do universo Rick and Morty</p>
       </header>
 
@@ -153,18 +147,6 @@ const LocalizacoesPage = () => {
               <option value="name">Nome</option>
               <option value="type">Tipo</option>
               <option value="dimension">Dimensão</option>
-            </select>
-          </div>
-
-          <div className="filter-group">
-            <label htmlFor="sort-order">Ordem:</label>
-            <select 
-              id="sort-order"
-              value={sortOrder} 
-              onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
-            >
-              <option value="asc">Crescente</option>
-              <option value="desc">Decrescente</option>
             </select>
           </div>
         </div>

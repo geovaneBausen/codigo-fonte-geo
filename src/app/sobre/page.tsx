@@ -66,30 +66,23 @@ const SobrePage = () => {
               navegação eficiente.
             </p>
             
-            <p>
-              O design responsivo garante que a aplicação funcione perfeitamente em 
-              dispositivos móveis, tablets e desktops, adaptando-se automaticamente 
-              ao tamanho da tela.
-            </p>
-            
             <h2>Desenvolvido por:</h2>
             <p>
               <strong>Geovane Bausen</strong><br/>
-              Desenvolvedor Full-Stack<br/>
-              Especialista em React, Next.js e TypeScript
+              Estudante de TSI<br/>
             </p>
             
             <h2>Agradecimentos:</h2>
             <p>
               Agradecimentos especiais aos criadores de Rick and Morty e aos mantenedores 
               da Rick and Morty API por disponibilizarem os dados de forma gratuita e 
-              acessível para a comunidade de desenvolvedores.
+              acessível para a comunidade de desenvolvedores. E aos meus orientadores das disciplinas de Arquitetura de Software: professor Bruno Clemente, Desenvolvimento Front-end II: professor Milton e Programação Orientada professor Arquimedes.
             </p>
             
-            <div className="footer-note">
+            <div className="footer-note"> 
               <em>
                 "Wubba lubba dub dub!" - Rick Sanchez<br/>
-                Este projeto foi criado com paixão e dedicação ao universo Rick and Morty.
+                Este projeto foi criado com paixão e dedicação.
               </em>
             </div>
           </div>

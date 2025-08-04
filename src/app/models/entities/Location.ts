@@ -14,7 +14,7 @@ export class Location extends EntidadeBase {
         dimension: string,
         residents: string[]
     ) {
-        super(id, name, url, created); 
+        super(id, name, url); 
         this.type = type;
         this.dimension = dimension;
         this.residents = residents;
@@ -32,6 +32,10 @@ export class Location extends EntidadeBase {
             this.type.toLowerCase().includes(termo) ||
             this.dimension.toLowerCase().includes(termo)
         );
+    }
+
+    public getDescription(): string {
+        return `Local: ${this.name} (${this.type}) - Dimensão: ${this.dimension}`;
     }
 
     toString(): string {

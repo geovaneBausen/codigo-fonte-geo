@@ -14,7 +14,7 @@ export class Episode extends EntidadeBase {
         episode: string,
         characters: string[]
     ) {
-        super(id, name, url, created); 
+        super(id, name, url); 
         
         this.air_date = air_date;
         this.episode = episode;
@@ -33,6 +33,10 @@ export class Episode extends EntidadeBase {
             this.episode.toLowerCase().includes(termo) ||
             this.air_date.toLowerCase().includes(termo)
         );
+    }
+
+    public getDescription(): string {
+        return `Episódio: ${this.episode} - ${this.name} (${this.air_date})`;
     }
 
     toString(): string {
