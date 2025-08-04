@@ -8,6 +8,41 @@ Esta aplicação foi desenvolvida como trabalho final interdisciplinar dos compo
 
 O sistema consome dados da **API pública Rick and Morty**, integrando-os em uma estrutura orientada a objetos composta por classes de **Personagem**, **Episódio** e **Localização**.
 
+## 📁 Estrutura do Projeto
+
+```
+src/app/
+├── componentes/           # Componentes React reutilizáveis
+│   ├── CharacterCard/     # Cartão de personagem
+│   ├── EntityCard/        # Cartão genérico de entidade
+│   ├── FilterSelect/      # Seletor de filtros
+│   ├── LocationCard/      # Cartão de localização
+│   ├── NavBar/           # Barra de navegação
+│   ├── SearchBar/        # Barra de busca
+│   └── UniversalSearch/  # Busca universal
+├── controllers/          # Lógica de negócio
+│   └── RickMortyController.ts # Controller principal
+├── hooks/               # Custom hooks React
+│   └── useRickMortyData.ts    # Hook para gerenciar dados
+├── interfaces/          # Contratos e interfaces
+│   └── IPesquisavel.ts  # Interface para entidades pesquisáveis
+├── models/             # Modelos de dados
+│   ├── base/
+│   │   └── EntidadeBase.ts    # Classe base para entidades
+│   └── entities/
+│       ├── Character.ts       # Modelo de personagem
+│             └── Alien.ts        
+│             └── HUman.ts       
+│       ├── Episode.ts         # Modelo de episódio
+│       └── Location.ts        # Modelo de localização
+
+└── PG*/                # Páginas da aplicação
+    ├── PGepisodios/    # Página de episódios
+    ├── PGpersonagens/  # Página de personagens
+    ├── PGplanetas/     # Página de localizações
+    └── PGsobre/        # Página sobre o projeto
+```
+
 ## 🏗️ Arquitetura e Padrões
 
 ### Princípios SOLID Implementados
@@ -49,41 +84,6 @@ O sistema consome dados da **API pública Rick and Morty**, integrando-os em uma
 ### Development & Build
 - **Axios**: Cliente HTTP para consumo de APIs
 - **React Spinners**: Componentes de loading
-
-## 📁 Estrutura do Projeto
-
-```
-src/app/
-├── componentes/           # Componentes React reutilizáveis
-│   ├── CharacterCard/     # Cartão de personagem
-│   ├── EntityCard/        # Cartão genérico de entidade
-│   ├── FilterSelect/      # Seletor de filtros
-│   ├── LocationCard/      # Cartão de localização
-│   ├── NavBar/           # Barra de navegação
-│   ├── SearchBar/        # Barra de busca
-│   └── UniversalSearch/  # Busca universal
-├── controllers/          # Lógica de negócio
-│   └── RickMortyController.ts # Controller principal
-├── hooks/               # Custom hooks React
-│   └── useRickMortyData.ts    # Hook para gerenciar dados
-├── interfaces/          # Contratos e interfaces
-│   └── IPesquisavel.ts  # Interface para entidades pesquisáveis
-├── models/             # Modelos de dados
-│   ├── base/
-│   │   └── EntidadeBase.ts    # Classe base para entidades
-│   └── entities/
-│       ├── Character.ts       # Modelo de personagem
-│             └── Alien.ts        
-│             └── HUman.ts       
-│       ├── Episode.ts         # Modelo de episódio
-│       └── Location.ts        # Modelo de localização
-
-└── PG*/                # Páginas da aplicação
-    ├── PGepisodios/    # Página de episódios
-    ├── PGpersonagens/  # Página de personagens
-    ├── PGplanetas/     # Página de localizações
-    └── PGsobre/        # Página sobre o projeto
-```
 
 ## 🔧 Funcionalidades
 
