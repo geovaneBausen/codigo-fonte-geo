@@ -4,10 +4,11 @@ import { useRickMortyData } from '../hooks/useRickMortyData';
 import { Character } from '../models/entities/Character';
 import CharacterCard from '../componentes/CharacterCard';
 import CharacterModal from '../componentes/CharacterModal';
+import SearchBar from '../componentes/SearchBar';
 import './personagens.scss';
 
 const PersonagensPage = () => {
-  const { entities, loading, error, handleFilterChange } = useRickMortyData();
+  const { entities, loading, error, handleFilterChange, handleSearch, searchTerm } = useRickMortyData();
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -15,15 +16,13 @@ const PersonagensPage = () => {
     handleFilterChange('character');
   }, [handleFilterChange]);
 
-  // Filtra os personagens diretamente do entities
-  const characters = entities as Character[];
-
-  // Remover personagens duplicados pelo id
-  const uniqueCharacters = characters.filter(
-    (char, idx, arr) => arr.findIndex(c => c.id === char.id) === idx
-  );
-
-  console.log('Dados dos personagens:', uniqueCharacters);
+  // Filtra apenas personagens válidos e remove duplicados
+  const uniqueCharacters = React.useMemo(() => {
+    const characters = entities.filter(entity => entity instanceof Character) as Character[];
+    return characters.filter(
+      (char, idx, arr) => char.id && arr.findIndex(c => c.id === char.id) === idx
+    );
+  }, [entities]);
 
   const handleCharacterClick = (character: Character) => {
     setSelectedCharacter(character);
@@ -56,8 +55,27 @@ const PersonagensPage = () => {
       </div>
     );
   }
+
   return (
     <div className="personagens-page">
+      {/* Cabeçalho da página */}
+      <div className="page-header">
+      
+       
+      </div>
+
+      {/* Barra de pesquisa */}
+      <div className="search-section">
+        <SearchBar 
+          searchTerm={searchTerm} 
+          onSearchChange={handleSearch} 
+          placeholder="Pesquisar personagens..." 
+        />
+      </div>
+
+
+
+      {/* Grid de personagens */}
       <ul className="characters-grid">
         {uniqueCharacters.length > 0 ? (
           uniqueCharacters.map((character) => (
@@ -70,7 +88,20 @@ const PersonagensPage = () => {
         ) : (
           <div className="no-results">
             <h3>Nenhum personagem encontrado</h3>
-            <p>Tente ajustar sua busca ou limpar os filtros</p>
+            <p>
+              {searchTerm 
+                ? `Nenhum personagem encontrado para "${searchTerm}"` 
+                : 'Tente ajustar sua busca ou limpar os filtros'
+              }
+            </p>
+            {searchTerm && (
+              <button 
+                className="clear-search-btn"
+                onClick={() => handleSearch('')}
+              >
+                Limpar pesquisa
+              </button>
+            )}
           </div>
         )}
       </ul>
@@ -83,5 +114,6 @@ const PersonagensPage = () => {
       />
     </div>
   );
-}
+};
+
 export default PersonagensPage;

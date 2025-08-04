@@ -1,23 +1,7 @@
-/**
- * Classe Abstrata EntidadeBase - Classe base para todas as entidades do sistema
- * 
- * Implementa os princípios SOLID e GRASP:
- * - SRP: Responsável por propriedades e comportamentos comuns a todas as entidades
- * - OCP: Aberta para extensão (subclasses) mas fechada para modificação
- * - LSP: Subclasses podem substituir a classe base sem quebrar funcionalidade
- * - ISP: Implementa IPesquisavel com métodos específicos para busca
- * - DIP: Depende da abstração IPesquisavel
- * - Expert: Encapsula conhecimento sobre timestamps e operações básicas
- * - Template Method: Define estrutura comum, delegando detalhes para subclasses
- * 
- * Padrões implementados:
- * - Template Method: getDescription() é abstrato, forçando implementação específica
- * - Strategy: atendeCriterio() pode ser sobrescrito para diferentes estratégias de busca
- */
 import { IPesquisavel } from '../../interfaces/IPesquisavel';
 
 /**
- * Classe abstrata que serve como base para todas as entidades do universo Rick and Morty
+ * Classe abstrata que serve como base para todas as entidades do Catalogo 
  * 
  * Fornece funcionalidades comuns como:
  * - Identificação única (id)
@@ -28,24 +12,14 @@ import { IPesquisavel } from '../../interfaces/IPesquisavel';
  */
 export abstract class EntidadeBase implements IPesquisavel {
   // Propriedades comuns a todas as entidades
-  public id: number;        // Identificador único da entidade
-  public name: string;      // Nome da entidade
-  public url: string;       // URL da API Rick and Morty
+  public id: number;        
+  public name: string;     
+  public url: string;       
 
   // Timestamps para auditoria e controle de versão
-  public criadoEm: Date;    // Data/hora de criação da instância
-  public atualizadoEm: Date; // Data/hora da última atualização
+  public criadoEm: Date;    
+  public atualizadoEm: Date; 
 
-  /**
-   * Construtor da classe base
-   * 
-   * Inicializa propriedades comuns e estabelece timestamps de criação.
-   * Template Method pattern: define estrutura comum para todas as entidades.
-   * 
-   * @param id - Identificador único da entidade
-   * @param name - Nome da entidade
-   * @param url - URL da API de origem
-   */
   constructor(id: number, name: string, url: string) {
     this.id = id;
     this.name = name;

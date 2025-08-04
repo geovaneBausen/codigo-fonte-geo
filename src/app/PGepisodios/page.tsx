@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { useRickMortyData, EntityData } from '../hooks/useRickMortyData';
+import { useRickMortyData } from '../hooks/useRickMortyData';
 import { Episode } from '../models/entities/Episode';
 import SearchBar from '../componentes/SearchBar';
 import EpisodeModal from '../componentes/EpisodeModal';
@@ -11,46 +11,39 @@ const EpisodiosPage = () => {
     const [selectedEpisode, setSelectedEpisode] = useState<Episode | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Define o filtro para 'episode' na montagem do componente
+    // Configuração inicial para carregar apenas episódios
     useEffect(() => {
         handleFilterChange('episode');
     }, [handleFilterChange]);
 
-    // O array 'entities' já contém apenas episódios, então podemos fazer o casting
-    const episodes = entities as Episode[];
+    // Type assertion segura - o hook já filtra por tipo
+    const episodes = (entities as Episode[]).filter(Boolean);
 
-    // Filtrar episódios válidos para evitar erros
-    const validEpisodes = React.useMemo(() => {
-        return episodes.filter(episode => 
-            episode && 
-            episode.id !== undefined && 
-            episode.id !== null
-        );
-    }, [episodes]);
-
-    const formatAirDate = (dateString: string | undefined) => {
+    const formatAirDate = (dateString?: string): string => {
         if (!dateString) return 'Data não disponível';
         
-        const date = new Date(dateString);
-        if (isNaN(date.getTime())) return 'Data inválida';
-        
-        return date.toLocaleDateString('pt-BR', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
+        try {
+            return new Date(dateString).toLocaleDateString('pt-BR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        } catch {
+            return 'Data inválida';
+        }
     };
 
-    const handleEpisodeClick = (episode: Episode) => {
+    const openEpisodeModal = (episode: Episode) => {
         setSelectedEpisode(episode);
         setIsModalOpen(true);
     };
 
-    const handleCloseModal = () => {
+    const closeModal = () => {
         setIsModalOpen(false);
         setSelectedEpisode(null);
     };
 
+    // Estados de carregamento e erro
     if (loading) {
         return (
             <div className="episodios-page">
@@ -75,6 +68,7 @@ const EpisodiosPage = () => {
 
     return (
         <div className="episodios-page">
+            {/* Controles de busca */}
             <div className="controls-section">
                 <SearchBar 
                     searchTerm={searchTerm} 
@@ -83,17 +77,20 @@ const EpisodiosPage = () => {
                 />
             </div>
 
+            {/* Contador de resultados */}
             <div className="results-info">
-                <p>Encontrados: <strong>{validEpisodes.length}</strong> episódios</p>
+                <p>Encontrados: <strong>{episodes.length}</strong> episódios</p>
             </div>
 
+            {/* Grid de episódios */}
             <div className="episodes-grid">
-                {validEpisodes.map((episode, index) => (
-                    <div key={`episode-${episode.id}-${index}`} className="episode-card">
+                {episodes.map((episode) => (
+                    <div key={episode.id} className="episode-card">
                         <div className="episode-header">
-                            <h3 title={episode.name || 'Episódio sem nome'}>{episode.name || 'Episódio sem nome'}</h3>
-                            <span className="episode-code">{episode.episode || 'N/A'}</span>
+                            <h3>{episode.name}</h3>
+                            <span className="episode-code">{episode.episode}</span>
                         </div>
+                        
                         <div className="episode-info">
                             <p className="air-date">
                                 <strong>Data de exibição:</strong> {formatAirDate(episode.air_date)}
@@ -101,10 +98,11 @@ const EpisodiosPage = () => {
                             <p className="characters-count">
                                 <strong>Personagens:</strong> {episode.characters?.length || 0} aparições
                             </p>
+                            
                             <div className="episode-actions">
                                 <button 
                                     className="details-btn"
-                                    onClick={() => handleEpisodeClick(episode)}
+                                    onClick={() => openEpisodeModal(episode)}
                                 >
                                     Ver Personagens
                                 </button>
@@ -114,7 +112,8 @@ const EpisodiosPage = () => {
                 ))}
             </div>
 
-            {validEpisodes.length === 0 && !loading && (
+            {/* Estado vazio */}
+            {episodes.length === 0 && (
                 <div className="no-results">
                     <p>
                         {searchTerm 
@@ -133,11 +132,11 @@ const EpisodiosPage = () => {
                 </div>
             )}
             
-            {/* Modal de detalhes do episódio */}
+            {/* Modal de detalhes */}
             <EpisodeModal 
                 episode={selectedEpisode}
                 isOpen={isModalOpen}
-                onClose={handleCloseModal}
+                onClose={closeModal}
             />
         </div>
     );

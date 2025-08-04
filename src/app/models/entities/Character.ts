@@ -1,20 +1,6 @@
-/**
- * Classe Character - Entidade representando um personagem do universo Rick and Morty
- * 
- * Implementa os princípios SOLID e GRASP:
- * - SRP: Responsável apenas por gerenciar dados e comportamentos de personagens
- * - OCP: Pode ser estendida sem modificar código existente
- * - LSP: Pode substituir EntidadeBase em qualquer contexto
- * - ISP: Implementa apenas IPesquisavel, interface específica para busca
- * - DIP: Depende de abstrações (EntidadeBase, IPesquisavel)
- * - Expert: Conhece seus próprios dados e como manipulá-los
- * - Alta Coesão: Todos os métodos são relacionados à entidade Character
- * - Baixo Acoplamento: Independente de outras entidades específicas
- */
 import { EntidadeBase } from '../base/EntidadeBase';
 
 export class Character extends EntidadeBase {
-  // Propriedades específicas do personagem
   public status: string;    // Estado vital: Alive, Dead, Unknown
   public species: string;   // Espécie: Human, Alien, etc.
   public gender: string;    // Gênero do personagem
@@ -23,20 +9,6 @@ export class Character extends EntidadeBase {
   public image: string;     // URL da imagem do personagem
   public episodes: string[]; // Lista de episódios em que aparece
 
-  /**
-   * Construtor da classe Character
-   * 
-   * @param id - Identificador único do personagem
-   * @param name - Nome do personagem
-   * @param status - Estado vital (Alive, Dead, Unknown)
-   * @param species - Espécie do personagem
-   * @param gender - Gênero do personagem
-   * @param origin - Local de origem
-   * @param location - Última localização conhecida
-   * @param image - URL da imagem
-   * @param episodes - Array de episódios (opcional, padrão: array vazio)
-   * @param url - URL da API (opcional, padrão: string vazia)
-   */
   constructor(
     id: number,
     name: string,
@@ -68,9 +40,7 @@ export class Character extends EntidadeBase {
    * Sobrescreve o método da classe pai para incluir campos específicos
    * do personagem na busca. Implementa polimorfismo para permitir
    * busca genérica através da interface IPesquisavel.
-   * 
-   * @param criterio - Termo de busca a ser procurado
-   * @returns boolean - true se o personagem atende ao critério
+   
    */
   public atendeCriterio(criterio: string): boolean {
     const termo = criterio.toLowerCase();
@@ -82,11 +52,6 @@ export class Character extends EntidadeBase {
   }
 
   /**
-   * Retorna uma descrição textual do personagem
-   * 
-   * Implementa polimorfismo - cada entidade tem sua própria
-   * forma de se descrever textualmente.
-   * 
    * @returns string - Descrição formatada do personagem
    */
   public getDescription(): string {
@@ -94,11 +59,7 @@ export class Character extends EntidadeBase {
   }
 
   /**
-   * Verifica se o personagem está vivo
-   * 
-   * Método de conveniência que encapsula a lógica de verificação
-   * do status vital do personagem.
-   * 
+
    * @returns boolean - true se o personagem estiver vivo
    */
   public estaVivo(): boolean {
@@ -133,14 +94,6 @@ export class Character extends EntidadeBase {
     this.atualizarTimestamp(); // Herda da classe pai
   }
 
-  /**
-   * Representação textual do personagem
-   * 
-   * Sobrescreve o método toString para fornecer uma representação
-   * legível e informativa do personagem.
-   * 
-   * @returns string - Representação textual formatada
-   */
   public toString(): string {
     return `${this.name} (${this.species}) - Status: ${this.status}`;
   }
