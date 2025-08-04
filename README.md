@@ -105,12 +105,4 @@ npm run clean      # Limpa arquivos temporários
 npm run fresh      # Reinstala dependências
 npm run type-check # Verificação de tipos TypeScript
 ```
-
-
-## 📄 Licença
-
-Este projeto foi desenvolvido para fins educacionais como parte do currículo do IFES Campus Santa Teresa.
-
----
-
-*Desenvolvido com 💚 para explorar o multiverso infinito de Rick and Morty!*
+*Desenvolvido com 💚*
