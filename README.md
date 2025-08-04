@@ -117,7 +117,7 @@ src/app/
 1. **Clone o repositório**
 ```bash
 git clone <url-do-repositorio>
-cd codigo-fonte
+cd codigo-fonte-geo
 ```
 
 2. **Instale as dependências**
