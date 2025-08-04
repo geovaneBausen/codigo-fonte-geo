@@ -1,0 +1,254 @@
+.sobre-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.notepad-container {
+    width: 100%;
+    max-width: 900px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.notepad-header {
+    background: linear-gradient(to bottom, #e8e8e8, #d0d0d0);
+    border-bottom: 1px solid #bbb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    height: 40px;
+}
+
+.notepad-tabs {
+    display: flex;
+    height: 100%;
+}
+
+.tab {
+    background: #f0f0f0;
+    border-right: 1px solid #ccc;
+    padding: 8px 16px;
+    font-size: 12px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.tab.active {
+    background: #fff;
+    border-bottom: 1px solid #fff;
+    margin-bottom: -1px;
+}
+
+.tab:hover {
+    background: #e8e8e8;
+}
+
+.notepad-controls {
+    display: flex;
+    height: 100%;
+}
+
+.control-btn {
+    width: 40px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+    transition: background 0.2s;
+}
+
+.control-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.control-btn.close:hover {
+    background: #e81123;
+    color: white;
+}
+
+.notepad-content {
+    display: flex;
+    background: #fff;
+    min-height: 600px;
+}
+
+.line-numbers {
+    background: #f5f5f5;
+    border-right: 1px solid #ddd;
+    padding: 15px 8px;
+    font-size: 12px;
+    color: #999;
+    line-height: 1.6;
+    user-select: none;
+    min-width: 50px;
+    text-align: right;
+}
+
+.line-number {
+    display: block;
+    height: 1.6em;
+}
+
+.text-content {
+    padding: 15px 20px;
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+    overflow-wrap: break-word;
+}
+
+.text-content h1 {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.text-content h2 {
+    color: #34495e;
+    font-size: 18px;
+    margin: 25px 0 15px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.text-content p {
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.text-content ul {
+    margin: 15px 0 15px 20px;
+    padding-left: 0;
+}
+
+.text-content li {
+    margin-bottom: 8px;
+    list-style-type: none;
+    position: relative;
+}
+
+.text-content li strong {
+    color: #2c3e50;
+}
+
+.footer-note {
+    background: #f8f9fa;
+    padding: 20px;
+    border-left: 4px solid #3498db;
+    margin-top: 30px;
+    border-radius: 0 4px 4px 0;
+}
+
+.footer-note em {
+    color: #666;
+    font-style: italic;
+    line-height: 1.8;
+}
+
+.notepad-footer {
+    background: linear-gradient(to bottom, #e8e8e8, #d0d0d0);
+    border-top: 1px solid #bbb;
+    padding: 5px 15px;
+    font-size: 11px;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 25px;
+}
+
+.status-info, .encoding, .file-type {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+/* Scrollbar personalizada */
+.text-content::-webkit-scrollbar {
+    width: 12px;
+}
+
+.text-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.text-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 6px;
+}
+
+.text-content::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .sobre-page {
+        padding: 10px;
+    }
+
+    .notepad-container {
+        margin-top: 10px;
+    }
+
+    .text-content {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+
+    .text-content h1 {
+        font-size: 20px;
+    }
+
+    .text-content h2 {
+        font-size: 16px;
+    }
+
+    .line-numbers {
+        display: none;
+    }
+
+    .notepad-controls {
+        display: none;
+    }
+
+    .tab {
+        padding: 8px 12px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .text-content {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .text-content h1 {
+        font-size: 18px;
+    }
+
+    .text-content h2 {
+        font-size: 14px;
+    }
+
+    .footer-note {
+        padding: 15px;
+    }
+}

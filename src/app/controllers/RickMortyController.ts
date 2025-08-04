@@ -155,7 +155,13 @@ export class RickMortyController {
             const data = await response.json();
             data.results.forEach((ep: any) => {
                 const episode = new Episode(
-                    ep.id, ep.name, ep.episode, ep.air_date, ep.characters, ep.url
+                    ep.id,
+                    ep.name,
+                    ep.url,
+                    ep.created,
+                    ep.air_date,
+                    ep.episode,
+                    ep.characters
                 );
                 this.adicionarEntidade(episode); // Adiciona o episódio ao catálogo
             });
@@ -170,7 +176,13 @@ export class RickMortyController {
 
             data.results.forEach((loc: any) => {
                 const location = new Location(
-                    loc.id, loc.name, loc.type, loc.dimension, loc.residents, loc.url
+                    loc.id,
+                    loc.name,
+                    loc.url,
+                    loc.created,
+                    loc.type,
+                    loc.dimension,
+                    loc.residents
                 );
                 this.adicionarEntidade(location);
             });
@@ -186,7 +198,18 @@ export class RickMortyController {
 
             data.results.forEach((char: any) => {
                 const character = new Character(
-                    char.id,char.name,char.status,char.species,char.gender,char.origin.name,char.location.name,char.image, char.episode,char.url
+                    char.id,
+                    char.name,
+                    char.url,
+                    char.created,
+                    char.status,
+                    char.species,
+                    char.type,
+                    char.gender,
+                    char.origin,
+                    char.location,
+                    char.image,
+                    char.episode
                 );
                 this.adicionarEntidade(character);
             });

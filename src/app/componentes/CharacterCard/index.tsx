@@ -18,46 +18,95 @@ const CharacterCard = memo(function CharacterCard({ character, onEpisodesClick }
     }
   };
 
+  // Função para obter ícone do status
+  const getStatusIcon = () => {
+    switch (character.status?.toLowerCase()) {
+      case 'alive': return '🟢';
+      case 'dead': return '🔴';
+      default: return '⚪';
+    }
+  };
+
+  // Função para obter ícone do gênero
+  const getGenderIcon = () => {
+    switch (character.gender?.toLowerCase()) {
+      case 'male': return '♂️';
+      case 'female': return '♀️';
+      case 'genderless': return '⚫';
+      default: return '❓';
+    }
+  };
+
   return (
     <li className='character-card'>
       <div className="character-image">
-        <img src={character.image} alt={character.name} />
+        <img 
+          src={character.image} 
+          alt={`Imagem do personagem ${character.name}`}
+          loading="lazy"
+        />
+        <div className={`status-badge ${getStatusClass()}`}>
+          {getStatusIcon()} {character.status}
+        </div>
       </div>
 
       <div className="character-info">
-        <h3 className="character-name">{character.name}</h3>
+        <header className="character-header">
+          <h3 className="character-name">{character.name}</h3>
+          <div className="character-id">#{character.id}</div>
+        </header>
         
         <div className="character-details">
-          <div className={`character-status ${getStatusClass()}`}>
-            {character.status} - {character.species}
-          </div>
-          
-          <div className="character-location">
-            <span className="location-label">Última localização:</span>
-            <span className="location-name">{character.location}</span>
-          </div>
-          
-          <div className="character-origin">
-            <span className="origin-label">Origem:</span>
-            <span className="origin-name">{character.origin}</span>
+          <div className="detail-row">
+            <span className="detail-label">👾 Espécie:</span>
+            <span className="detail-value">{character.species}</span>
           </div>
 
-          <div className="character-episodes">
-            <span className="episodes-label">Episódios:</span>
-            <span className="episodes-count">{character.episodes.length}</span>
+          <div className="detail-row">
+            <span className="detail-label">{getGenderIcon()} Gênero:</span>
+            <span className="detail-value">{character.gender}</span>
           </div>
 
-          {onEpisodesClick && (
-            <div className="character-actions">
-              <button 
-                className="episodes-btn"
-                onClick={() => onEpisodesClick(character)}
-              >
-                Ver Episódios
-              </button>
+          {character.type && character.type.trim() !== '' && (
+            <div className="detail-row">
+              <span className="detail-label">🏷️ Tipo:</span>
+              <span className="detail-value">{character.type}</span>
             </div>
           )}
+          
+          <div className="detail-row">
+            <span className="detail-label">📍 Localização:</span>
+            <span className="detail-value location-name">
+              {character.location?.name || 'Desconhecida'}
+            </span>
+          </div>
+          
+          <div className="detail-row">
+            <span className="detail-label">🌍 Origem:</span>
+            <span className="detail-value origin-name">
+              {character.origin?.name || 'Desconhecida'}
+            </span>
+          </div>
+
+          <div className="detail-row episodes-row">
+            <span className="detail-label">📺 Episódios:</span>
+            <span className="detail-value episodes-count">
+              {character.episode?.length || 0} aparição{(character.episode?.length || 0) !== 1 ? 'ões' : ''}
+            </span>
+          </div>
         </div>
+
+        {onEpisodesClick && (character.episode?.length || 0) > 0 && (
+          <footer className="character-actions">
+            <button 
+              className="episodes-btn"
+              onClick={() => onEpisodesClick(character)}
+              aria-label={`Ver episódios de ${character.name}`}
+            >
+              🎬 Ver Episódios ({character.episode?.length || 0})
+            </button>
+          </footer>
+        )}
       </div>
     </li>
   );

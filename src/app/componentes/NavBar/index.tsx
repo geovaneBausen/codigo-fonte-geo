@@ -115,22 +115,17 @@ export default function NavBar(){
                 <ul className="nav-links">
                     <li>
                         <Link href="/" className={`nav-link ${isActive('/') ? 'active' : ''}`}>
-                            <span className="nav-text">Discover</span>
+                            <span className="nav-text">Discovery</span>
                         </Link>
                     </li>
                     <li>
-                        <Link href="/PGpersonagens" className={`nav-link ${isActive('/PGpersonagens') ? 'active' : ''}`}>
-                            <span className="nav-text">Characters</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/PGplanetas" className={`nav-link ${isActive('/PGplanetas') ? 'active' : ''}`}>
+                        <Link href="/localizacoes" className={`nav-link ${isActive('/localizacoes') ? 'active' : ''}`}>
                             <span className="nav-text">Locations</span>
                         </Link>
                     </li>
                     <li>
-                        <Link href="/PGepisodios" className={`nav-link ${isActive('/PGepisodios') ? 'active' : ''}`}>
-                            <span className="nav-text">Episodes</span>
+                        <Link href="/sobre" className={`nav-link ${isActive('/sobre') ? 'active' : ''}`}>
+                            <span className="nav-text">About</span>
                         </Link>
                     </li>
                 </ul>

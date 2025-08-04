@@ -3,14 +3,15 @@
     border-radius: 8px;
     overflow: hidden;
     transition: transform 0.2s, box-shadow 0.2s;
-    background: white;
+    background: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     height: 100%;
     display: flex;
     flex-direction: column;
     
     &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
     }
     
     .card-content {

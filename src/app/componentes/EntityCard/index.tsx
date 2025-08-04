@@ -37,7 +37,7 @@ const EntityCard: React.FC<EntityCardProps> = ({ entity }) => {
                         <p><strong>Espécie:</strong> {char.species}</p>
                         <p><strong>Status:</strong> {char.status}</p>
                         <p><strong>Gênero:</strong> {char.gender}</p>
-                        <p><strong>Origem:</strong> {char.origin}</p>
+                        <p><strong>Origem:</strong> {char.origin.name}</p>
                     </>
                 );
             }
@@ -47,7 +47,7 @@ const EntityCard: React.FC<EntityCardProps> = ({ entity }) => {
                     <>
                         <p><strong>Tipo:</strong> {loc.type}</p>
                         <p><strong>Dimensão:</strong> {loc.dimension}</p>
-                        <p><strong>Residentes:</strong> {loc.residents.length}</p>
+                        <p><strong>Residentes:</strong> {loc.residents?.length || 0}</p>
                     </>
                 );
             }
@@ -57,7 +57,7 @@ const EntityCard: React.FC<EntityCardProps> = ({ entity }) => {
                     <>
                         <p><strong>Episódio:</strong> {ep.episode}</p>
                         <p><strong>Data:</strong> {ep.air_date}</p>
-                        <p><strong>Personagens:</strong> {ep.characters.length}</p>
+                        <p><strong>Personagens:</strong> {ep.characters?.length || 0}</p>
                     </>
                 );
             }

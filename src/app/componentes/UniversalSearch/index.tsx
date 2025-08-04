@@ -135,7 +135,7 @@ export default function UniversalSearch() {
       <SearchBar 
         searchTerm={searchQuery}
         onSearchChange={handleSearchChange}
-        placeholder="Buscar personagens, episódios, localizações..."
+        placeholder="Buscar personagens, status, episódios, localizações..."
       />
 
       {/* Renderização condicional baseada no estado da busca */}

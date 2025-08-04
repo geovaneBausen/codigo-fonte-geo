@@ -1,65 +1,41 @@
 import { EntidadeBase } from '../base/EntidadeBase';
 
 export class Episode extends EntidadeBase {
-  public episode: string;
-  public air_date: string;
-  public characters: string[];
+    public readonly air_date: string;
+    public readonly episode: string;
+    public readonly characters: string[];
 
-  constructor(
-    id: number,
-    name: string,
-    episode: string,
-    air_date: string,
-    characters: string[] = [],
-    url: string = ''
-  ) {
-    super(id, name, url);
-    this.episode = episode;
-    this.air_date = air_date;
-    this.characters = characters;
-  }
-
-  public atendeCriterio(criterio: string): boolean {
-    const termo = criterio.toLowerCase();
-    return super.atendeCriterio(criterio) ||
-           this.episode.toLowerCase().includes(termo) ||
-           this.air_date.toLowerCase().includes(termo);
-  }
-
-  public getDescription(): string {
-    return `Episódio: ${this.episode} - ${this.name} (${this.air_date})`;
-  }
-
-  public adicionarPersonagem(personagem: string): void {
-    if (!this.characters.includes(personagem)) {
-      this.characters.push(personagem);
-      this.atualizarTimestamp();
+    constructor(
+        id: number,
+        name: string,
+        url: string,
+        created: string, 
+        air_date: string,
+        episode: string,
+        characters: string[]
+    ) {
+        super(id, name, url, created); 
+        
+        this.air_date = air_date;
+        this.episode = episode;
+        this.characters = characters;
     }
-  }
 
-  public removerPersonagem(personagem: string): void {
-    this.characters = this.characters.filter(c => c !== personagem);
-    this.atualizarTimestamp();
-  }
+    atendeCriterio(criterio: string): boolean {
+        if (!criterio || criterio.trim() === '') {
+            return true;
+        }
 
-  public obterNumeroPersonagens(): number {
-    return this.characters.length;
-  }
+        const termo = criterio.toLowerCase().trim();
+        
+        return (
+            this.name.toLowerCase().includes(termo) ||
+            this.episode.toLowerCase().includes(termo) ||
+            this.air_date.toLowerCase().includes(termo)
+        );
+    }
 
-  public toJSON(): any {
-    return {
-      id: this.id,
-      name: this.name,
-      episode: this.episode,
-      air_date: this.air_date,
-      characters: this.characters,
-      url: this.url,
-      criadoEm: this.criadoEm,
-      atualizadoEm: this.atualizadoEm
-    };
-  }
-
-  public toString(): string {
-    return `${this.name} (${this.episode}) - ${this.air_date}`;
-  }
+    toString(): string {
+        return `Episode: ${this.name} (${this.episode})`;
+    }
 }
