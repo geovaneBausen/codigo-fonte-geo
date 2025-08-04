@@ -116,7 +116,7 @@ src/app/
 
 1. **Clone o repositório**
 ```bash
-git clone <url-do-repositorio>
+git clone [<url-do-repositorio>](https://github.com/geovaneBausen/codigo-fonte-geo.git)
 cd codigo-fonte-geo
 ```
 
