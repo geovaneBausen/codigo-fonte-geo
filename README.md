@@ -47,7 +47,6 @@ O sistema consome dados da **API pública Rick and Morty**, integrando-os em uma
 - **React Icons**: Biblioteca de ícones
 
 ### Development & Build
-- **ESLint**: Linting e qualidade de código
 - **Axios**: Cliente HTTP para consumo de APIs
 - **React Spinners**: Componentes de loading
 
@@ -110,7 +109,7 @@ src/app/
 
 ### Pré-requisitos
 - Node.js (versão 18 ou superior)
-- npm ou yarn
+- npm 
 
 ### Instalação
 
@@ -141,53 +140,12 @@ http://localhost:3000
 npm run dev        # Executa em modo desenvolvimento
 npm run build      # Gera build de produção
 npm run start      # Executa build de produção
-npm run lint       # Executa linting do código
 npm run clean      # Limpa arquivos temporários
 npm run fresh      # Reinstala dependências
 npm run type-check # Verificação de tipos TypeScript
 npm run test:watch # Executa testes em modo watch
 ```
 
-## 🧪 Testes
-
-O projeto inclui testes de integração para o controller principal:
-
-```bash
-npm run test:watch
-```
-
-## 📖 Documentação do Código
-
-Todo o código está amplamente documentado com:
-- **JSDoc**: Documentação de funções e classes
-- **Comentários explicativos**: Explicação de padrões e arquitetura
-- **Type annotations**: Tipagem completa em TypeScript
-- **Exemplos de uso**: Demonstrações práticas nos comentários
-
-## 🎯 Objetivos Educacionais Alcançados
-
-### Arquitetura de Software
-- Aplicação de princípios SOLID e GRASP
-- Implementação de padrões de projeto
-- Estruturação modular e escalável
-
-### Desenvolvimento Front-end
-- Componentização React avançada
-- Gerenciamento de estado com hooks
-- Responsividade e UX/UI
-
-### Programação Orientada a Objetos
-- Herança e polimorfismo
-- Encapsulamento e abstração
-- Interfaces e contratos bem definidos
-
-## 🌟 Destaques Técnicos
-
-- **Performance**: Uso de `React.memo` e `useCallback` para otimizações
-- **Acessibilidade**: Estrutura semântica e alt texts
-- **Type Safety**: TypeScript para prevenção de erros
-- **Modularidade**: Arquitetura facilmente extensível
-- **Clean Code**: Código limpo e bem documentado
 
 ## 📄 Licença
 
