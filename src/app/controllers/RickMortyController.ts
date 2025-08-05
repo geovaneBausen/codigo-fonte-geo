@@ -36,7 +36,7 @@ export class RickMortyController {
     }
 
     /**
-     * Carrega todos os dados da API do Rick and Morty e popula o catálogo.
+     * Carrega todos os dados da api e popula o catálogo.
      * Esta função é segura para ser chamada múltiplas vezes,
      * pois só carrega os dados se o catálogo estiver vazio.
      * @throws Erro se a requisição da API falhar.
