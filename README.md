@@ -42,11 +42,10 @@ src/app/
 │       ├── Episode.ts         # Modelo de episódio
 │       └── Location.ts        # Modelo de localização
 
-└── PG*/                # Páginas da aplicação
-    ├── PGepisodios/    # Página de episódios
-    ├── PGpersonagens/  # Página de personagens
-    ├── PGplanetas/     # Página de localizações
-    └── PGsobre/        # Página sobre o projeto
+└── PG*/
+    ├── home/             
+    ├── localizações/ # Página de localizações
+    └── sobre/  # Página sobre o projeto
 ```
 
 ### 
