@@ -63,11 +63,6 @@ const SobrePage = () => {
               <em>
                 "Wubba lubba dub dub!" - Rick Sanchez<br />
               </em>
-
-              <em>
-                https://github.com/geovaneBausen/codigo-fonte-geo<br />
-              </em>
-
               <em>
                 <br/>
                 <em>
