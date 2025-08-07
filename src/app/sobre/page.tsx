@@ -16,17 +16,17 @@ const SobrePage = () => {
             <button className="control-btn close">×</button>
           </div>
         </div>
-        
+
         <div className="notepad-content">
           <div className="line-numbers">
             {Array.from({ length: 50 }, (_, i) => (
               <span key={i + 1} className="line-number">{i + 1}</span>
             ))}
           </div>
-          
+
           <div className="text-content">
             <h1>Sobre a Arquitetura do Projeto</h1>
-            
+
             <p>
               O projeto foi desenvolvido utilizando principalmente TypeScript, React e Next.js, compondo uma arquitetura moderna e robusta para aplicações web. O TypeScript foi adotado para trazer tipagem estática ao JavaScript, aumentando a confiabilidade do código e facilitando a manutenção, especialmente em projetos grandes e orientados a objetos. A estruturação das entidades, interfaces e controllers foi feita aproveitando ao máximo os recursos de tipagem e orientação a objetos que o TypeScript oferece.
             </p>
@@ -58,15 +58,33 @@ const SobrePage = () => {
             <p>
               Por fim, o projeto aplicou princípios sólidos de design de software, como SOLID e GRASP, para garantir um código limpo, modular e extensível. O uso combinado de TypeScript, React, Next.js, padrões de projeto e boas práticas de arquitetura resultou em uma aplicação eficiente, fácil de evoluir e com ótima experiência para o usuário.
             </p>
-            
-            <div className="footer-note"> 
+
+            <div className="footer-note">
               <em>
-                "Wubba lubba dub dub!" - Rick Sanchez<br/>
+                "Wubba lubba dub dub!" - Rick Sanchez<br />
+              </em>
+
+              <em>
+                https://github.com/geovaneBausen/codigo-fonte-geo<br />
+              </em>
+
+              <em>
+                <br />
+                <em>
+                  <a
+                    href="https://github.com/geovaneBausen/codigo-fonte-geo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://github.com/geovaneBausen/codigo-fonte-geo
+                  </a>
+                  <br />
+                </em>
               </em>
             </div>
           </div>
         </div>
-        
+
         <div className="notepad-footer">
           <span className="status-info">Ln 1, Col 1</span>
           <span className="encoding">UTF-8</span>
