@@ -69,16 +69,14 @@ const SobrePage = () => {
               </em>
 
               <em>
-                <br />
+                <br/>
                 <em>
                   <a
                     href="https://github.com/geovaneBausen/codigo-fonte-geo"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    https://github.com/geovaneBausen/codigo-fonte-geo
-                  </a>
-                  <br />
+                  <br/>
                 </em>
               </em>
             </div>
